@@ -1,15 +1,12 @@
 <template>
     <div>
-        <p>ahoj</p>
-        <p>ahoj</p>
+        <ListProjects />
     </div>
 </template>
 
 <script setup>
-
+import ListProjects from '@/pages/ListProjects.vue'
 </script>
 
 <style lang="scss" scoped>
-
-
 </style>

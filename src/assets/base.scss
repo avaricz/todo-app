@@ -1,7 +1,9 @@
 $white: #fcfcfc;
 $gray: #ededed;
 $black: #212121;
-$blue: #00f7ff;
+$blue: #007070;
+
+$black-lt: lighten($black, 40%);
 
 $color-text: $black;
 $color-background: $white;
@@ -24,7 +26,6 @@ body {
   transition:
     color 0.5s,
     background-color 0.5s;
-  //line-height: 1.6;
   font-family:
     Inter,
     -apple-system,
@@ -38,7 +39,4 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  //text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }

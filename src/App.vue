@@ -5,8 +5,7 @@
 
 
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import MainBar from './views/MainBar.vue'
+import MainBar from '@/components/MainBar.vue'
 import WorkSpace from './views/WorkSpace.vue'
 </script>
 
