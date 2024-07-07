@@ -1,23 +1,17 @@
-import projectImg from '@/img/icons/projects.svg'
-import taskImg from '@/img/icons/task.svg'
-import personsImg from '@/img/icons/persons.svg'
-
-
-
 export default [
     {
         title: "Projects",
-        imgPath: projectImg,
+        imgPath: "src/img/icons/projects.svg",
         link: "/projects"
     },
     {
         title: "Tasks",
-        imgPath: taskImg,
+        imgPath: "src/img/icons/task.svg",
         link: "/tasks"
     },
     {
         title: "Persons",
-        imgPath: personsImg,
+        imgPath: "src/img/icons/persons.svg",
         link: "/persons"
     }
 ]

@@ -1,13 +1,18 @@
 <template>
     <div class="nav-container">
         <ul class="nav">
+
             <li v-for="(item, index) in navigationItems" :key="'navigationItem'+index">
+
                 <RouterLink :to="item.link">
                     <img :src="item.imgPath" alt="">
                     {{ item.title }}
                 </RouterLink>
+
                 <div class="count">{{ count[index] }}</div>
+
             </li>
+
         </ul>
     </div>
     

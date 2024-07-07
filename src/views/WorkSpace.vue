@@ -1,11 +1,10 @@
 <template>
     <div>
-        <ListProjects />
+        <RouterView />
     </div>
 </template>
 
 <script setup>
-import ListProjects from '@/pages/ListProjects.vue'
 </script>
 
 <style lang="scss" scoped>
