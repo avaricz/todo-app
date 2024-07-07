@@ -7,6 +7,17 @@ export const projects = [
         project: "Web",
         description: "Web pro firmu a všchny čiností s tím spojené"
     },
+    {
+        name: "Project 1",
+        description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque! Culpa consequuntur debitis accusamus vero dolor laboriosam, iste repellat optio dignissimos perspiciatis?",
+        people: ["Adam", "Někdo", "Nikdo", "Ten Taky", "Tamten Též"],
+        deadline: "31.12.2024",
+        todos: [
+            "todo1",
+            "todo2",
+            "todo3"
+        ]
+    }
 ]
 
 export const tasks = [
