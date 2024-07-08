@@ -1,21 +1,35 @@
 export const projects = [
     {
-        project: "Zahrada",
-        description: "Práce na zahradě a vše okolo"
-    },
-    {
-        project: "Web",
-        description: "Web pro firmu a všchny čiností s tím spojené"
-    },
-    {
-        name: "Project 1",
+        project: "Project 1",
         description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque! Culpa consequuntur debitis accusamus vero dolor laboriosam, iste repellat optio dignissimos perspiciatis?",
         people: ["Adam", "Někdo", "Nikdo", "Ten Taky", "Tamten Též"],
         deadline: "31.12.2024",
         todos: [
-            "todo1",
-            "todo2",
-            "todo3"
+            "todo11",
+            "todo12",
+            "todo13"
+        ]
+    },
+    {
+        project: "Project 2",
+        description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque! Culpa consequuntur debitis accusamus vero dolor laboriosam, iste repellat optio dignissimos perspiciatis?",
+        people: ["Adam", "Někdo", "Nikdo", "Ten Taky", "Tamten Též"],
+        deadline: "31.12.2024",
+        todos: [
+            "todo21",
+            "todo22",
+            "todo23"
+        ]
+    },
+    {
+        project: "Project 3",
+        description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque! Culpa consequuntur debitis accusamus vero dolor laboriosam, iste repellat optio dignissimos perspiciatis?",
+        people: ["Adam", "Někdo", "Nikdo", "Ten Taky", "Tamten Též"],
+        deadline: "31.12.2024",
+        todos: [
+            "todo31",
+            "todo32",
+            "todo33"
         ]
     }
 ]

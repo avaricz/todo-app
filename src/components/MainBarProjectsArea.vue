@@ -1,14 +1,21 @@
 <template>
+
     <div class="projects-container">
+       
         <div class="header">Projects</div>
+       
         <ul class="list-of-projects">
+            
             <li v-for="project in projectsList">
                 <img src="@/img/icons/project.svg" alt="">
                 {{ project }}
                 <div>(3/6)</div>
             </li>
+        
         </ul>
+    
     </div>
+    
 </template>
 
 <script setup>
