@@ -3,7 +3,12 @@ $gray: #ededed;
 $black: #212121;
 $blue: #007070;
 
+
 $black-lt: lighten($black, 40%);
+$blue-lt: lighten($blue, 70%);
+$green-lt: #d9ead3;
+$yellow-lt: #fff2cc;
+$red-lt: #f4cccc;
 
 $color-text: $black;
 $color-background: $white;

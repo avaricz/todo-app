@@ -36,36 +36,44 @@ export const projects = [
 
 export const tasks = [
     {
-        task: "first task",
-        date: "2024-07-13",
-        completed: false,
+        id:1,
+        title: "first task",
+        deadline: "2024-07-13",
+        content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque!",
+        done: false,
         priority: 1,
-        projectid: "zahrada"
-
+        projectId: "",
+        personId: "",
     },
     {
-        task: "second task",
-        date: "2024-07-13",
-        completed: false,
-        priority: 1,
-        projectid: "web"
-
+        id:2,
+        title: "second task",
+        deadline: "2024-07-13",
+        content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque!",
+        done: false,
+        priority: 2,
+        projectId: "",
+        personId: "",
     },
     {
-        task: "thirth task",
-        date: "2024-07-13",
-        completed: false,
-        priority: 1,
-        projectid: ""
-
+        id:3,
+        title: "thirth task",
+        deadline: "2024-07-13",
+        content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque!",
+        done: false,
+        priority: 3,
+        projectId: "",
+        personId: "",
     },
     {
-        task: "fourth task",
-        date: "2024-07-13",
-        completed: false,
+        id:4,
+        title: "fourth task",
+        deadline: "2024-07-13",
+        content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque!",
+        done: false,
         priority: 1,
-        projectid: "web"
-
+        projectId: "",
+        personId: "",
     }
 ]
 
