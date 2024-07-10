@@ -80,21 +80,21 @@ export const tasks = [
 export const persons = [
     {
         firstName: "Adam",
-        lastName:  "Hádl",
-        position:  "worker",
-
+        lastName: "Hádl",
+        positionId: 2,
+        taskId: [3,4],
     },
     {
         firstName: "Pepa",
-        lastName:  "Náhodný",
-        position:  "driver",
-
+        lastName: "Náhodný",
+        positionId: 3,
+        taskId: [1],
     },
     {
         firstName: "David",
-        lastName:  "Nedavid",
-        position:  "manager",
-
+        lastName: "Nedavid",
+        positionId: 1,
+        taskId: [2]
     }
 ]
 
