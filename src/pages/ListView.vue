@@ -48,7 +48,7 @@
 
     // POSITIONS
     const positionList = ref(positions)
-    console.log(positionList.value);
+    //console.log(positionList.value);
 
     // PERSONS
     const personList = ref(persons)

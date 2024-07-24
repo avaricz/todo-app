@@ -44,7 +44,7 @@ const props = defineProps({
 })
 
 const initials = ref(props.personName[0])
-console.log(initials.value)
+//console.log(initials.value)
 
 </script>
 
