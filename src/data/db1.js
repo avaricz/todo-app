@@ -1,13 +1,13 @@
 
-// const url = "https://sdaapi.glabazna.eu/js6tasks?projectid=project.id"
+// const baseURL = "https://sdaapi.glabazna.eu/js6tasks?projectid=project.id"
 
-const url = "https://sdaapi.glabazna.eu/"
+const baseURL = "https://sdaapi.glabazna.eu/"
 const allProjects = "js6projects/"
 
 export default {
     // GET method
     get() {
-        fetch(url + allProjects)
+        fetch(baseURL + allProjects)
         .then(response => {
             if(!response.ok) {
                 throw new Error('Network response wasn\'t ok' + response.statusText)
@@ -19,7 +19,7 @@ export default {
     },
     // POST method
     post() {
-        fetch(url + allProjects, {
+        fetch(baseURL + allProjects, {
             method: 'POST',
             body: JSON.stringify({
                     project: 'AH - Project1', 
@@ -37,7 +37,7 @@ export default {
     },
     // PUT method
     put(recordNumber) {
-        fetch(url + allProjects + recordNumber, { 
+        fetch(baseURL + allProjects + recordNumber, { 
             method: 'PUT',
             body: JSON.stringify({
                 project: 'AH - Project1',
@@ -55,7 +55,7 @@ export default {
     },
     // DELETE method
     delete(recordNumber) {
-        fetch(url + allProjects + recordNumber, {
+        fetch(baseURL + allProjects + recordNumber, {
             method: 'DELETE',
         })
         .then(response => {
