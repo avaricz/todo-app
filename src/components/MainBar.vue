@@ -1,7 +1,9 @@
 <template>
     <div class="container">
         <MainBarTopNavigation />
-        <MainBarProjectsArea />
+        <Suspense>
+            <MainBarProjectsArea />
+        </Suspense>
     </div>
 </template>
 
@@ -11,7 +13,6 @@
 </script>
 
 <style lang="scss" scoped>
-
     @import "@/assets/main.scss";
 
     .container {
@@ -23,9 +24,5 @@
         min-height: 100vh;
         
         padding: 3rem 2rem;
-
     }
-
-
-
 </style>

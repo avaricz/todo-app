@@ -1,30 +1,36 @@
 
-// const baseURL = "https://sdaapi.glabazna.eu/js6tasks?projectid=project.id"
-
 const baseURL = "https://sdaapi.glabazna.eu/"
-const allProjects = "js6projects/"
 
-export default {
+export const paths = {
+    allProjects: "js6projects/",
+    allTasks: "js6tasks",
+    allPersons: "js6persons",
+    allPositions: "js6positions"
+
+}
+
+export const methods = {
     // GET method
-    get() {
-        fetch(baseURL + allProjects)
+     get(path) {
+        const data = fetch(baseURL + path)
         .then(response => {
             if(!response.ok) {
                 throw new Error('Network response wasn\'t ok' + response.statusText)
             }
             return response.json()
         })
-        .then(data => console.log(data))
+        .then(data => {
+            return data.data
+        })
         .catch(error => console.log('GET error: ', error))
+
+        return data
     },
     // POST method
-    post() {
-        fetch(baseURL + allProjects, {
+    post(path, body) {
+        fetch(baseURL + path, {
             method: 'POST',
-            body: JSON.stringify({
-                    project: 'AH - Project1', 
-                    description: 'Adamuv pokus'
-                })
+            body: JSON.stringify(body)
         })
         .then(response => {
             if(!response.ok) {
@@ -67,4 +73,4 @@ export default {
         .then(data => console.log('DELETE:', data))
         .catch(error => console.log('DELETE Error: ', error))
     }
-}
+} 

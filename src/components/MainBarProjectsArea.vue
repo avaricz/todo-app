@@ -1,30 +1,85 @@
 <template>
 
+
     <div class="projects-container">
        
         <div class="header">Projects</div>
-       
         <ul class="list-of-projects">
             
             <li v-for="project in projectsList">
                 <img src="@/img/icons/project.svg" alt="">
-                {{ project }}
-                <div>(3/6)</div>
+                {{ project.project }}
+                <div> {{ project.uncompletedcount }} / {{project.taskscount}}</div>
             </li>
         
         </ul>
-    
+        
     </div>
-    
+    <button @click="addProject">add project</button>
+    <button @click="addTask">add task</button>
+    <button @click="addPerson">add person</button>
+    <button @click="addPosition">add position</button>
+
+
+
 </template>
 
 <script setup>
-    import { ref } from 'vue'
-    import { projects } from '@/data/db.js';
+    import { paths, methods } from '@/data/db1.js';
 
-    const projectsList = ref(projects.map(project => project.project))
-    const test = ref()
+    const {
+        allPersons,
+        allPositions, 
+        allProjects, 
+        allTasks 
+    } = paths
 
+    const projectsList = await methods.get(paths.allProjects)
+    
+    const personsList = await methods.get(paths.allPersons)
+    
+    const tasksList = await methods.get(paths.allTasks)
+    
+    const positionsList = await methods.get(paths.allPositions)
+    
+    const addProject = () => {
+        const path = paths.allProjects
+        const body = {
+                        project: 'AH - Project1', 
+                        description: 'Adamuv pokus'
+                    }
+        methods.post(path, body)
+    }
+
+    const addTask = () => {
+        const path = paths.allTasks
+        const body = {
+                        task: 'AH - zase neco', 
+                        date: "2024-10-02",
+                        completed: 1,
+                        priority: 2,
+                        projectid: 1,
+                    }
+        methods.post(path, body)
+    }
+
+    const addPerson = () => {
+        const path = paths.allPersons
+        const body = {
+                        first: 'Machr', 
+                        last: "Designovy",
+                        positionid: 3,
+                    }
+        methods.post(path, body)
+    }
+
+    const addPosition = () => {
+        const path = paths.allPositions
+        const body = {
+                        position: 'frontendak', 
+                    }
+        methods.post(path, body)
+    }
 </script>
 
 <style lang="scss" scoped>
