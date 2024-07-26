@@ -1,12 +1,10 @@
 <template>
     <div>
-        <RouterView />
+        <Suspense>
+            <RouterView />
+        </Suspense>
     </div>
 </template>
 
 <script setup>
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -1,5 +1,10 @@
 <template>
     <div class="nav-container">
+
+        <RouterLink to="/">
+            HOME
+        </RouterLink>
+
         <ul class="nav">
 
             <li v-for="(item, index) in navigationItems" :key="'navigationItem'+index">
@@ -24,14 +29,16 @@
     import { projects, tasks, persons } from '@/data/db.js'
     import navigationItems from '@/data/navigationItems';
 
-
     const count = ref([projects.length, tasks.length, persons.length])
-
 </script>
 
 <style lang="scss" scoped>
 @import '../assets/base.scss';
 
+.home-icon {
+    height: 1rem;
+    width: 1rem;
+}
 .nav {
     list-style-type: none;
     padding: 0;

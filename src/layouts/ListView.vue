@@ -1,44 +1,37 @@
 <template>
     
-    <div v-if="true" class="list-view-container">
-        
+    <div v-if="true" class="projects-list-view-container">
+        <slot name="projects"></slot>
     </div>
-    <div class="todo-list-view-container">
-        
+    <div class="todos-list-view-container">
+        <slot name="tasks"></slot>
     </div>
-    <div class="person-list-view-container">
+    <div class="persons-list-view-container">
         
-            
+        <slot name="persons"></slot>
     </div>
 
 </template>
 
 <script setup>
-    import { ref } from 'vue'
-
-
-
-    // TASKS
-    
-
 </script>
 
 <style lang="scss" scoped>
     @import '@/assets/base.scss';
-    .list-view-container {
+    .projects-list-view-container {
         display: flex;
         flex-direction: column;
         gap: 2rem;
         padding: 2rem;
     }
-    .todo-list-view-container {
+    .todos-list-view-container {
         display: flex;
         flex-direction: column;
         padding: 2rem;
         gap: 2px;
         background: white;
     }
-    .person-list-view-container {
+    .persons-list-view-container {
         display: flex;
         flex-direction: column;
         padding: 2rem;

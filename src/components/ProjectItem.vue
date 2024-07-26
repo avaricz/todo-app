@@ -31,8 +31,6 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue'
-
     defineProps({
         name: String,
         description: String,
