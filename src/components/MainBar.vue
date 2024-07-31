@@ -1,6 +1,8 @@
 <template>
     <div class="container">
+        <Suspense>
         <MainBarTopNavigation />
+        </Suspense>
         <Suspense>
             <MainBarProjectsArea />
         </Suspense>

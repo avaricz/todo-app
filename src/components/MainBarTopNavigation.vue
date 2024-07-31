@@ -13,9 +13,9 @@
                     <img :src="item.imgPath" alt="">
                     {{ item.title }}
                 </RouterLink>
-
-                <div class="count">{{ count[index] }}</div>
-
+                
+                 <div class="count">{{ countOfItems[index] }}</div>
+                
             </li>
 
         </ul>
@@ -24,12 +24,48 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue'
+    import { ref, onMounted} from 'vue'
     import { RouterLink } from 'vue-router';
-    import { projects, tasks, persons } from '@/data/db.js'
-    import navigationItems from '@/data/navigationItems';
+    import { methods, paths } from '@/data/db1.js'
 
-    const count = ref([projects.length, tasks.length, persons.length])
+    const { 
+        allProjects,
+        allTasks,
+        allPersons
+    } = paths
+
+    const navigationItems = [
+        {
+            title: "Projects",
+            imgPath: "src/img/icons/projects.svg",
+            link: "/projects"
+        },
+        {
+            title: "Tasks",
+            imgPath: "src/img/icons/task.svg",
+            link: "/tasks"
+        },
+        {
+            title: "Persons",
+            imgPath: "src/img/icons/persons.svg",
+            link: "/persons"
+        }
+    ]
+
+    const countOfItems = ref([])
+    const itemsPath = [allProjects, allTasks, allPersons]
+
+    const  getItemCount = async (path) => { 
+        const itemData = await methods.get(path)
+        return  itemData.length
+    }
+
+    onMounted(async () => {
+        for (let i = 0; i < itemsPath.length; i++){
+            const data = await getItemCount(itemsPath[i])
+            countOfItems.value[i] = data
+        }
+    })
 </script>
 
 <style lang="scss" scoped>
