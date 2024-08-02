@@ -5,7 +5,7 @@
             :key="`project ${index+1}`"
             :name="project.project"
             :description="project.description"
-            :people="project.people.length"
+            :people="5"
             :deadline="'2024-01-10'"
             @clicked="onClickedProject(index)"
             :show="isProjectDetailOpened[index]"
@@ -17,13 +17,15 @@
     import { ref } from 'vue'
     import ProjectItem from '@/components/ProjectItem.vue';
     import ListView from '@/layouts/ListView.vue';
-    import  { projects }  from '@/data/db.js'
+    import  { methods, paths }  from '@/data/db.js'
 
-    const projectList = ref(projects)
+    const { get } = methods
+    const { allProjects } = paths
+    
+
+    const projectList = ref(await get(allProjects))
     
     const isProjectDetailOpened = ref(projectList.value.map(project => false))
 
-    const onClickedProject = (index) => {
-        isProjectDetailOpened.value[index] = !isProjectDetailOpened.value[index]
-    }
+    const onClickedProject = (index) => isProjectDetailOpened.value[index] = !isProjectDetailOpened.value[index]
 </script>

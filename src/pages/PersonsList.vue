@@ -1,11 +1,11 @@
 <template>
     <ListView #persons>
         <PersonItem 
-                v-for="(person, index) in personList"
+                v-for="(person, index) in personsList"
                 :key="`person ${index+1}`"
-                :person-name="person.firstName + ' ' + person.lastName"
-                :person-position="person.positionId"
-                :number-of-tasks="person.taskId.length"
+                :person-name="person.first + ' ' + person.last"
+                :person-position="person.position"
+                :number-of-tasks="7"
                 />
     </ListView>
 </template>
@@ -14,7 +14,7 @@
     import { ref } from 'vue'
     import PersonItem from '@/components/PersonItem.vue'
     import ListView from '@/layouts/ListView.vue';
-    import  { persons}   from '@/data/db.js'
+    import {methods, paths} from '@/data/db'
 
-    const personList = ref(persons)
+    const personsList = ref(await methods.get(paths.allPersons))
 </script>

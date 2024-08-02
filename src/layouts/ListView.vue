@@ -1,12 +1,12 @@
 <template>
     
-    <div v-if="true" class="projects-list-view-container">
+    <div v-if="$route.path === '/projects'" class="projects-list-view-container">
         <slot name="projects"></slot>
     </div>
-    <div class="todos-list-view-container">
+    <div v-if="$route.path === '/tasks'" class="todos-list-view-container">
         <slot name="tasks"></slot>
     </div>
-    <div class="persons-list-view-container">
+    <div v-if="$route.path === '/persons'" class="persons-list-view-container">
         
         <slot name="persons"></slot>
     </div>

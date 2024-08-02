@@ -36,7 +36,7 @@
         required: false
     },
     priorityLabel: {
-        type: String,
+        type: Number,
         default: "no priority"
     },
     show: {

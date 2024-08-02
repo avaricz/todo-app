@@ -2,26 +2,21 @@
     <div>
         HomePage
     </div>
+
     <h2>Projects</h2>
-    <ul>
-        <li v-for="project in projectsList"> {{ project }} </li>
-    </ul>
+    <pre>{{ projectsList }}</pre>
     <h2>Tasks</h2>
-    <ul>
-        <li v-for="task in tasksList"> {{ task }} </li>
-    </ul>
+    <pre>{{ tasksList }}</pre>
     <h2>Persons</h2>
-    <ul>
-        <li v-for="person in personsList"> {{ person }} </li>
-    </ul>
+    <pre>{{ personsList }}</pre>
     <h2>Positions</h2>
-    <ul>
-        <li v-for="position in positionsList"> {{ position }} </li>
-    </ul>
+    <pre>{{ positionsList }}</pre>
+
+
 </template>
 
 <script setup>
-    import { methods, paths } from '@/data/db1'
+    import { methods, paths } from '@/data/db'
     const { get, post, put, delete:del } = methods
 
     const {
@@ -39,13 +34,10 @@
 
 <style lang="scss" scoped>
 
-ul {
+pre {
     border: 1px solid black;
     background-color: azure;
-}
-
-li {
-    padding: 1rem 0;
+    margin: 2rem ;
 }
 
 </style>

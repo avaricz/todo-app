@@ -1,101 +1,76 @@
-export const projects = [
-    {
-        project: "Project 1",
-        description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque! Culpa consequuntur debitis accusamus vero dolor laboriosam, iste repellat optio dignissimos perspiciatis?",
-        people: ["Adam", "Někdo", "Nikdo", "Ten Taky", "Tamten Též"],
-        deadline: "31.12.2024",
-        todos: [
-            "todo11",
-            "todo12",
-            "todo13"
-        ]
-    },
-    {
-        project: "Project 2",
-        description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque! Culpa consequuntur debitis accusamus vero dolor laboriosam, iste repellat optio dignissimos perspiciatis?",
-        people: ["Adam", "Někdo", "Nikdo", "Ten Taky", "Tamten Též"],
-        deadline: "31.12.2024",
-        todos: [
-            "todo21",
-            "todo22",
-            "todo23"
-        ]
-    },
-    {
-        project: "Project 3",
-        description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque! Culpa consequuntur debitis accusamus vero dolor laboriosam, iste repellat optio dignissimos perspiciatis?",
-        people: ["Adam", "Někdo", "Nikdo", "Ten Taky", "Tamten Též"],
-        deadline: "31.12.2024",
-        todos: [
-            "todo31",
-            "todo32",
-            "todo33"
-        ]
-    }
-]
 
-export const tasks = [
-    {
-        id:1,
-        title: "first task",
-        deadline: "2024-07-13",
-        content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque!",
-        done: false,
-        priority: 1,
-        projectId: "",
-        personId: "",
-    },
-    {
-        id:2,
-        title: "second task",
-        deadline: "2024-07-13",
-        content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque!",
-        done: false,
-        priority: 2,
-        projectId: "",
-        personId: "",
-    },
-    {
-        id:3,
-        title: "thirth task",
-        deadline: "2024-07-13",
-        content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque!",
-        done: false,
-        priority: 3,
-        projectId: "",
-        personId: "",
-    },
-    {
-        id:4,
-        title: "fourth task",
-        deadline: "2024-07-13",
-        content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi quidem architecto fugiat officiis repellendus voluptatibus quam dolorem atque!",
-        done: false,
-        priority: 1,
-        projectId: "",
-        personId: "",
-    }
-]
+const baseURL = "https://sdaapi.glabazna.eu/"
 
-export const persons = [
-    {
-        firstName: "Adam",
-        lastName: "Hádl",
-        positionId: 2,
-        taskId: [3,4],
-    },
-    {
-        firstName: "Pepa",
-        lastName: "Náhodný",
-        positionId: 3,
-        taskId: [1],
-    },
-    {
-        firstName: "David",
-        lastName: "Nedavid",
-        positionId: 1,
-        taskId: [2]
-    }
-]
+export const paths = {
+    allProjects: "js6projects/",
+    allTasks: "js6tasks/",
+    allPersons: "js6persons/",
+    allPositions: "js6positions/"
 
-export const positions = ["manager", "worker", "driver"]
+}
+
+export const methods = {
+    // GET method
+     get(path) {
+        const data = fetch(baseURL + path)
+        .then(response => {
+            if(!response.ok) {
+                throw new Error('Network response wasn\'t ok' + response.statusText)
+            }
+            return response.json()
+        })
+        .then(data => {
+            return data.data
+        })
+        .catch(error => console.log('GET error: ', error))
+
+        return data
+    },
+    // POST method
+    post(path, body) {
+        fetch(baseURL + path, {
+            method: 'POST',
+            body: JSON.stringify(body)
+        })
+        .then(response => {
+            if(!response.ok) {
+                throw new Error('Network response wasn\'t ok' + response.statusText)
+            }
+            return response.json()
+        })
+        .then(data => console.log('POST:', data))
+        .catch(error => console.log('POST Error', error))
+    },
+    // PUT method
+    put(recordNumber) {
+        fetch(baseURL + allProjects + recordNumber, { 
+            method: 'PUT',
+            body: JSON.stringify({
+                project: 'AH - Project1',
+                description: 'Adamuv pokus a jeho update 2'
+            })
+        })
+        .then(response => {
+            if(!response.ok) {
+                throw new Error('Network response wasn\'t ok' , + response.statusText)
+            }
+            return response.json()
+        })
+        .then(data => console.log('PUT:', data))
+        .catch(error => console.log('PUT Error: ', error))
+    },
+    // DELETE method
+    delete(recordNumber) {
+        fetch(baseURL + allProjects + recordNumber, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if(!response.ok) {
+                throw new Error('Network response wasn\'t ok' , + response.statusText)
+            }
+            return response.json()
+        })
+        .then(data => console.log('DELETE:', data))
+        .catch(error => console.log('DELETE Error: ', error))
+    }
+} 

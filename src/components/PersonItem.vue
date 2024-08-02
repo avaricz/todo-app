@@ -30,7 +30,7 @@ const props = defineProps({
         required: true,
     },
     personPosition: {
-        type: Number,
+        type: String,
         default: "",
     },
     numberOfTasks: {

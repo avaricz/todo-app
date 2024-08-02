@@ -24,6 +24,21 @@ const router = createRouter({
       name: 'persons',
       component: () => import ('../pages/PersonsList.vue')
     },
+    {
+      path: '/form-project',
+      name: 'form-project',
+      component: () => import ('../pages/FormPage.vue')
+    },
+    {
+      path: '/form-task',
+      name: 'form-task',
+      component: () => import ('../pages/FormPage.vue')
+    },
+    {
+      path: '/form-person',
+      name: 'form-person',
+      component: () => import ('../pages/FormPage.vue')
+    }
   ]
 })
 

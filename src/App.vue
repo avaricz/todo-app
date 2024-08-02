@@ -1,9 +1,6 @@
 <template>
   <MainBar class="main-bar"/>
   <WorkSpace class="workspace"/>
-  <button @click="addNewRecord">new record</button>
-  <button @click="editRecord">Edit record</button>
-  <button @click="deleteRecord">Delete record</button>
 </template>
 
 <script setup>
@@ -18,5 +15,6 @@
 }
 .workspace {
   grid-column-start: 2;
+  overflow: auto;
 }
 </style>
