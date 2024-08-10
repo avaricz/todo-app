@@ -9,7 +9,9 @@
             <li v-for="project in projectsList">
                 <img src="@/img/icons/project.svg" alt="">
                 {{ project.project }}
-                <div> {{ project.uncompletedcount }} / {{project.taskscount}}</div>
+                <StandardButton :label="''" :type="'button'" @onclick="deleteProject(project.id)">
+                    <img width="16px" height="16px" src="@/img/icons/delete.svg" alt="">
+                </StandardButton>
             </li>
         
         </ul>
@@ -19,24 +21,28 @@
 </template>
 
 <script setup>
+    import { ref, onMounted } from 'vue'
     import { paths, methods } from '@/data/db.js';
+    import StandardButton from '../form/StandardButton.vue';
 
-    const {
-        allPersons,
-        allPositions, 
-        allProjects, 
-        allTasks 
-    } = paths
+    //Data
+    const projectsList = ref([])
 
-    const projectsList = await methods.get(paths.allProjects)
-    
-    const personsList = await methods.get(paths.allPersons)
-    
-    const tasksList = await methods.get(paths.allTasks)
-    
-    const positionsList = await methods.get(paths.allPositions)
-    
 
+    const getProjectsData = () => {
+        return methods.get(paths.allProjects)
+    }
+
+    onMounted(async () => {
+        const data = await getProjectsData()
+        projectsList.value = data
+    })
+
+
+    // Delete Projects
+    const deleteProject = async (projectId) => {
+        methods.delete(paths.allProjects, projectId)
+    }
 
     const addTask = () => {
         const path = paths.allTasks

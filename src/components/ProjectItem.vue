@@ -56,12 +56,11 @@
     flex-direction: column;
     gap: .8rem;
 
-    border: 1px solid $black-lt;
+    border: .5px solid $black-lt;
     border-radius: 10px;
+    //box-shadow: 0 0 5px -1px $black-lt;
 
     padding: 1rem;
-
-    
 }
 .project-header {
     display: flex;

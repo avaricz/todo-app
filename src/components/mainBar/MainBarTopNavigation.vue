@@ -1,11 +1,12 @@
 <template>
     <div class="nav-container">
 
-        <RouterLink to="/">
-           # HOME
-        </RouterLink>
-        <br><br>
         <ul class="nav">
+            <li class="home-link">
+                <RouterLink to="/">
+                    <img src="@/img/icons/home.svg" alt="">HOME
+                </RouterLink>
+            </li>
 
             <li v-for="(item, index) in navigationItems" :key="'navigationItem'+index">
 
@@ -83,6 +84,9 @@
     flex-grow: 1;
     flex-direction: column;
     gap:.4rem;
+    .home-link {
+        margin-bottom: 1rem;
+    }
     li {
         display: flex;
         img {

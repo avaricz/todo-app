@@ -27,17 +27,17 @@ const router = createRouter({
     {
       path: '/form-project',
       name: 'form-project',
-      component: () => import ('../pages/FormPage.vue')
+      component: () => import ('../pages/FormPageProject.vue')
     },
     {
       path: '/form-task',
       name: 'form-task',
-      component: () => import ('../pages/FormPage.vue')
+      component: () => import ('../pages/FormPageTask.vue')
     },
     {
       path: '/form-person',
       name: 'form-person',
-      component: () => import ('../pages/FormPage.vue')
+      component: () => import ('../pages/FormPagePerson.vue')
     }
   ]
 })

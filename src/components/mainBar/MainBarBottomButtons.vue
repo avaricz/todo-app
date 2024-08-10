@@ -4,6 +4,7 @@
         <button class="button" @click="addTask">+ Task</button>
         <button class="button" @click="addPerson">+ Person</button>
 
+       
     </div>
 </template>
 

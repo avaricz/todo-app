@@ -60,8 +60,8 @@ export const methods = {
         .catch(error => console.log('PUT Error: ', error))
     },
     // DELETE method
-    delete(recordNumber) {
-        fetch(baseURL + allProjects + recordNumber, {
+    delete(path, recordNumber) {
+        fetch(baseURL + path + recordNumber, {
             method: 'DELETE',
         })
         .then(response => {
