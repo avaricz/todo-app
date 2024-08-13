@@ -9,8 +9,13 @@
             <li v-for="project in projectsList">
                 <img src="@/img/icons/project.svg" alt="">
                 {{ project.project }}
-                <StandardButton :label="''" :type="'button'" @onclick="deleteProject(project.id)">
-                    <img width="16px" height="16px" src="@/img/icons/delete.svg" alt="">
+                <StandardButton 
+                class="bin-icon"
+                :label="''" 
+                :type="'button'" 
+                @onclick="deleteProject(project.id)"
+                >
+                    <img width="16px" height="16px" src="@/img/icons/delete.svg" alt="" >
                 </StandardButton>
             </li>
         
@@ -21,57 +26,24 @@
 </template>
 
 <script setup>
-    import { ref, onMounted } from 'vue'
-    import { paths, methods } from '@/data/db.js';
     import StandardButton from '../form/StandardButton.vue';
+    import { paths, methods } from '@/data/db.js';
+    import { usePinia } from '@/store';
+    import { computed } from 'vue'
 
+    const pinia = usePinia()
+
+    
     //Data
-    const projectsList = ref([])
-
-
-    const getProjectsData = () => {
-        return methods.get(paths.allProjects)
-    }
-
-    onMounted(async () => {
-        const data = await getProjectsData()
-        projectsList.value = data
+    const projectsList = computed(() => {
+        return pinia.projects
     })
 
-
     // Delete Projects
-    const deleteProject = async (projectId) => {
-        methods.delete(paths.allProjects, projectId)
-    }
-
-    const addTask = () => {
-        const path = paths.allTasks
-        const body = {
-                        task: 'AH - zase neco', 
-                        date: "2024-10-02",
-                        completed: 1,
-                        priority: 2,
-                        projectid: 1,
-                    }
-        methods.post(path, body)
-    }
-
-    const addPerson = () => {
-        const path = paths.allPersons
-        const body = {
-                        first: 'Machr', 
-                        last: "Designovy",
-                        positionid: 3,
-                    }
-        methods.post(path, body)
-    }
-
-    const addPosition = () => {
-        const path = paths.allPositions
-        const body = {
-                        position: 'frontendak', 
-                    }
-        methods.post(path, body)
+    const deleteProject = (projectId) => {
+        methods.delete(paths.allProjects, projectId).then(() => {
+            pinia.fetchProjects()
+        })
     }
 </script>
 
@@ -91,7 +63,7 @@
     .list-of-projects {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: 1rem;
 
         padding: 0;
 
@@ -101,10 +73,13 @@
             gap: .5rem;
             align-items: center;
 
-            font-size: 1.1rem;
+            font-size: 1.0rem;
             font-weight: 600;
             img{
                 height: 1.6rem;
+            }
+            .bin-icon{
+                margin-left: auto;
             }
         }
     }

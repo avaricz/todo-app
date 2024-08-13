@@ -15,58 +15,45 @@
                     {{ item.title }}
                 </RouterLink>
                 
-                 <div class="count">{{ countOfItems[index] }}</div>
+                 <div class="count">{{ item.count }}</div>
                 
             </li>
 
         </ul>
     </div>
-    
+
 </template>
 
 <script setup>
-    import { ref, onMounted} from 'vue'
+    import { usePinia } from '@/store';
     import { RouterLink } from 'vue-router';
-    import { methods, paths } from '@/data/db.js'
+    import { computed } from 'vue'
+    
+    const pinia = usePinia()
 
-    const { 
-        allProjects,
-        allTasks,
-        allPersons
-    } = paths
-
-    const navigationItems = [
+    const navigationItems = computed(() => {
+        return [
         {
             title: "Projects",
             imgPath: "src/img/icons/projects.svg",
-            link: "/projects"
+            link: "/projects",
+            count: pinia.projects.length,
         },
         {
             title: "Tasks",
             imgPath: "src/img/icons/task.svg",
-            link: "/tasks"
+            link: "/tasks",
+            count: pinia.projects.reduce((acc,cur) => acc + cur.taskscount, 0),
+
         },
         {
             title: "Persons",
             imgPath: "src/img/icons/persons.svg",
-            link: "/persons"
+            link: "/persons",
+            count: pinia.projects.length ? pinia.projects[0].personscount : 0,
         }
-    ]
+    ]})
 
-    const countOfItems = ref([])
-    const itemsPath = [allProjects, allTasks, allPersons]
-
-    const  getItemCount = async (path) => { 
-        const itemData = await methods.get(path)
-        return  itemData.length
-    }
-
-    onMounted(async () => {
-        for (let i = 0; i < itemsPath.length; i++){
-            const data = await getItemCount(itemsPath[i])
-            countOfItems.value[i] = data
-        }
-    })
 </script>
 
 <style lang="scss" scoped>
