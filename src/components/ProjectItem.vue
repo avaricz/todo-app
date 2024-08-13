@@ -10,8 +10,16 @@
         </div>
 
             <template v-if="show">
-
                 <div class="project-description">{{ description }}</div>
+
+                <template v-if="tasksList " >
+                    <div>
+                        <ul>
+                            <li v-for="task in tasksList">{{ task.task }}</li>
+                        </ul>
+                        
+                    </div> 
+                </template>
 
                 <div class="project-footer">
                     <div class="persons-area">
@@ -31,12 +39,14 @@
 </template>
 
 <script setup>
-    defineProps({
+
+    const props = defineProps({
+        show: Boolean,
         name: String,
         description: String,
         people: Number,
         deadline: String, //TODO změnit props na Date
-        show: Boolean
+        tasksList: Array 
     })
 
     const emit = defineEmits(['clicked'])
@@ -58,7 +68,6 @@
 
     border: .5px solid $black-lt;
     border-radius: 10px;
-    //box-shadow: 0 0 5px -1px $black-lt;
 
     padding: 1rem;
 }

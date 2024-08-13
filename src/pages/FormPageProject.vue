@@ -18,12 +18,17 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
-import FormView from '@/layouts/FormView.vue'
-import InputText from '@/components/form/InputText.vue';
-import InputTextarea from '@/components/form/InputTextarea.vue';
 import SubmitButton from '@/components/form/StandardButton.vue';
+import InputTextarea from '@/components/form/InputTextarea.vue';
+import InputText from '@/components/form/InputText.vue';
+import FormView from '@/layouts/FormView.vue'
 import { methods, paths } from '@/data/db'
+import { useRouter } from 'vue-router';
+import {ref} from 'vue'
+import { usePinia } from '@/store';
+
+const router = useRouter()
+const pinia = usePinia()
 
 const formSettings = ref({
     projectName: {
@@ -44,15 +49,19 @@ const formSettings = ref({
     }
 })
 
-// Odesle data do databaze
-const onSubmit = () => {
+// Methods
+function onSubmit () {
     const { allProjects } = paths
     const newProjectBody = {
         project: formSettings.value.projectName.inputValue,
         description: formSettings.value.projectDescription.inputValue
     }
-        
-    methods.post(allProjects, newProjectBody)
+    methods.post(allProjects, newProjectBody).then(() => {
+        pinia.fetchProjects()
+        router.push('/projects')
+    })
+
+  
 }
 </script>
 

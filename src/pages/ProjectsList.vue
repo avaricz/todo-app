@@ -5,27 +5,50 @@
             :key="`project ${index+1}`"
             :name="project.project"
             :description="project.description"
-            :people="5"
-            :deadline="'2024-01-10'"
-            @clicked="onClickedProject(index)"
+            :tasks-list="project.tasks"
+            :people="peopleWorkingOnProject"
+            :deadline="deadline"
             :show="isProjectDetailOpened[index]"
+            @clicked="onClickedProject(index)"
+            :id="project.id"
             /> 
     </ListView>
 </template>
 
 <script setup>
-    import { ref } from 'vue'
     import ProjectItem from '@/components/ProjectItem.vue';
     import ListView from '@/layouts/ListView.vue';
-    import  { methods, paths }  from '@/data/db.js'
+    import { usePinia } from '@/store';
+    import { ref ,computed } from 'vue'
 
-    const { get } = methods
-    const { allProjects } = paths
-    
+    const pinia = usePinia()
 
-    const projectList = ref(await get(allProjects))
-    
+    // Data
+    const projectList = computed(() => pinia.projects)
     const isProjectDetailOpened = ref(projectList.value.map(project => false))
+    const deadline = computed(() => "13-4-2023")
+    const peopleWorkingOnProject = computed(() => 4)
 
-    const onClickedProject = (index) => isProjectDetailOpened.value[index] = !isProjectDetailOpened.value[index]
+    
+    // Methods
+    function onClickedProject (index) {
+        const projectId = projectList.value[index].id
+        pinia.fetchTasksByProjects(projectId)
+        isProjectDetailOpened.value[index] = !isProjectDetailOpened.value[index]
+    }
+
+
+    /*     
+
+    const project = computed(()=>{
+        return store.state.projects.find((project) => project.id === props.id)
+    })
+
+    const deadline = computed(()=>{
+        return project.value.tasks.reduce((acc, cur) => acc < cur.date ? cur.date : acc ,"")
+    })
+
+     */
+
+
 </script>
