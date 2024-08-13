@@ -26,8 +26,6 @@ defineProps({
 
 const emit = defineEmits(['onclick'])
 
-
-
 const onClick = () => {
     emit('onclick')
 }

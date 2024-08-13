@@ -25,7 +25,6 @@ import {ref} from 'vue'
 import FormView from '@/layouts/FormView.vue'
 import InputText from '@/components/form/InputText.vue';
 import SubmitButton from '@/components/form/StandardButton.vue';
-import { methods, paths } from '@/data/db'
 import InputSelect from '@/components/form/inputSelect.vue';
 
 const formSettings = ref({
@@ -50,10 +49,8 @@ const formSettings = ref({
     }
 })
 
-
-// Odesle data do databaze
+// Methods
 const onSubmit = () => {
-    const { allProjects } = paths
 
 }
 </script>

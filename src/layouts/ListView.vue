@@ -23,6 +23,8 @@
         flex-direction: column;
         gap: 2rem;
         padding: 2rem;
+        max-width: 1024px;
+        margin: 0 auto;
     }
     .todos-list-view-container {
         display: flex;
@@ -30,12 +32,16 @@
         padding: 2rem;
         gap: 2px;
         background: white;
+        max-width: 1024px;
+        margin: 0 auto;
     }
     .persons-list-view-container {
         display: flex;
         flex-direction: column;
         padding: 2rem;
         gap: 1rem;
+        max-width: 1024px;
+        margin: 0 auto;
 
     }
 </style>

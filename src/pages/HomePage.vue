@@ -17,19 +17,15 @@
 
 <script setup>
     import { methods, paths } from '@/data/db'
-    const { get, post, put, delete:del } = methods
 
-    const {
-        allPersons,
-        allPositions,
-        allProjects,
-        allTasks,
-    } = paths
+    const { get, delete:del } = methods
+    const { allPersons, allPositions, allProjects, allTasks } = paths
 
     const projectsList = await get(allProjects)
     const tasksList = await get(allTasks)
     const personsList = await get(allPersons)
     const positionsList = await get(allPositions)
+
 </script>
 
 <style lang="scss" scoped>

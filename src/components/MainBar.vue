@@ -20,6 +20,7 @@
     @import "@/assets/main.scss";
 
     .container {
+        position: relative;
         display:flex;
         flex-direction: column;
         background: $color-background-mainbar;
@@ -32,10 +33,13 @@
         }
         .projects-wrapper {
             padding: 1.5rem 2rem;
+            overflow: auto;
         }
         .buttons-wrapper {
             min-width: 100%;
             margin-top: auto;
+            position: absolute;
+            bottom: 0;
         }
     }
 </style>
