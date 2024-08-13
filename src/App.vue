@@ -6,6 +6,15 @@
 <script setup>
   import MainBar from '@/components/MainBar.vue'
   import WorkSpace from './views/WorkSpace.vue'
+  import { usePinia } from './store';
+  import { onMounted } from 'vue';
+  
+  const pinia = usePinia()
+
+  onMounted(() => {
+    pinia.fetchProjects()
+  })
+
 </script>
 
 <style lang="scss" scoped>
@@ -16,5 +25,6 @@
 .workspace {
   grid-column-start: 2;
   overflow: auto;
+  max-height: 100vh;
 }
 </style>

@@ -1,5 +1,9 @@
 <template>
-    <div class="task-container" :class="{bordered: show}" @mouseover="$emit('under-mouse')" @mouseleave="$emit('not-mouse')">
+    <div 
+    class="task-container" 
+    :class="{bordered: show}" 
+    @mouseover="$emit('under-mouse')" 
+    @mouseleave="$emit('not-mouse')">
 
         <div class="task-header">     
 
@@ -48,8 +52,6 @@
         required: true
     }
  })
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -91,7 +93,6 @@
 
     .bordered {
         border: .5px solid $black-lt;
-        //box-shadow: 0px 5px 15px  $black-lt;
     }
     
     .opened {
