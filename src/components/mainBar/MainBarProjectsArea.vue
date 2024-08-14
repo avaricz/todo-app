@@ -80,8 +80,13 @@
             }
             .bin-icon{
                 margin-left: auto;
+                &:hover {
+                    background-color: $gray-dr;
+                }
+                &:active {
+                    box-shadow: 0 0 -5px 10px black;
+                }
             }
         }
     }
-
 </style>

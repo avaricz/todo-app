@@ -35,6 +35,11 @@ const router = createRouter({
       component: () => import ('../pages/FormPageTask.vue')
     },
     {
+      path: '/form-task/:id',
+      name: 'task-edit',
+      component: () => import ('../pages/FormPageTask.vue')
+    },
+    {
       path: '/form-person',
       name: 'form-person',
       component: () => import ('../pages/FormPagePerson.vue')

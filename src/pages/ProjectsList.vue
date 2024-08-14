@@ -1,5 +1,5 @@
 <template>
-    <ListView #projects>
+    <ListView>
         <ProjectItem 
             v-for="(project, index) in projectList"
             :key="`project ${index+1}`"

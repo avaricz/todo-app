@@ -1,5 +1,5 @@
 <template>
-    <ListView #persons>
+    <ListView>
         <PersonItem 
                 v-for="(person, index) in personsList"
                 :key="`person ${index+1}`"

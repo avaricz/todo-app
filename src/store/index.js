@@ -12,7 +12,19 @@ export const usePinia = defineStore('DataStore', {
     }),
     // Computed
     getters: {
-        
+        areTasksDone: (state) => {
+            const arr = []
+            
+             state.tasks.map(task => {
+                if(task.completed === 0){
+                    arr.push(false)
+                } else {
+                    arr.push(true)
+                }
+            })
+            console.log(arr)
+            return arr
+        }
     },
     // Methods
     actions: {
@@ -24,6 +36,18 @@ export const usePinia = defineStore('DataStore', {
         fetchTasks(){
             return get(allTasks).then(data => {
                 this.tasks = data
+            })
+        },
+        getTaskById(taskid){
+            const allTasksFetched = this.tasks.length
+            ? Promise.resolve()
+            : this.fetchTasks()
+
+
+            return allTasksFetched.then(() => {
+               return this.tasks.find(task => {
+                    return task.id === taskid
+                })
             })
         },
         fetchTasksByProjects(projectid){

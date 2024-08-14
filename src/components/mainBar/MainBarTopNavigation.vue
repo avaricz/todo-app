@@ -27,7 +27,7 @@
 <script setup>
     import { usePinia } from '@/store';
     import { RouterLink } from 'vue-router';
-    import { computed } from 'vue'
+    import {  computed } from 'vue'
     
     const pinia = usePinia()
 

@@ -11,6 +11,8 @@
     <pre>{{ personsList }}</pre>
     <h2>Positions</h2>
     <pre>{{ positionsList }}</pre>
+    <h2>PersonsTasks</h2>
+    <pre>{{ PersonstasksList }}</pre>
 
 
 </template>
@@ -19,12 +21,13 @@
     import { methods, paths } from '@/data/db'
 
     const { get, delete:del } = methods
-    const { allPersons, allPositions, allProjects, allTasks } = paths
+    const { allPersons, allPositions, allProjects, allTasks,allPersonstasks } = paths
 
     const projectsList = await get(allProjects)
     const tasksList = await get(allTasks)
     const personsList = await get(allPersons)
     const positionsList = await get(allPositions)
+    const PersonstasksList = await get(allPersonstasks)
 
 </script>
 

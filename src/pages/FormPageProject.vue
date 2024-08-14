@@ -1,6 +1,6 @@
 <template>
 
-        <FormView #project-form>
+        <FormView>
             <form  @submit.prevent="onSubmit" class="form">
                 
                 <InputText :settings="formSettings.projectName" />
