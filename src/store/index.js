@@ -1,34 +1,38 @@
 import { defineStore } from "pinia";
 import { methods, paths } from "@/data/db";
 
-const { get } = methods
+const { get, put, delete:del} = methods
 const { allProjects, allTasks } = paths
 
 export const usePinia = defineStore('DataStore', {
     // Data
     state: () => ({
-        projects: [],
-        tasks: [],
+            projects: [],
+            tasks: [],
+            singleTask: null
     }),
     // Computed
     getters: {
-        areTasksDone: (state) => {
-            const arr = []
-            
-             state.tasks.map(task => {
-                if(task.completed === 0){
-                    arr.push(false)
-                } else {
-                    arr.push(true)
-                }
-            })
-            console.log(arr)
-            return arr
-        }
     },
     // Methods
     actions: {
-         fetchProjects(){
+        deleteTask (taskid) {
+            return del(`${allTasks}/${taskid}`).then(() => {
+                Promise.all([this.fetchTasks(),this.fetchProjects()])
+            })
+        },
+        changeCompleted (taskid, done) {
+            const isDone = + done === 0 ? 1 : 0
+            return put(allTasks, taskid, {completed: isDone})
+            .then(() => {
+                get(`${allTasks}/${taskid}`)
+                .then(data => {
+                    const index = this.tasks.findIndex(task => task.id === taskid)
+                    this.tasks[index] = data
+                })
+            })
+        },
+        fetchProjects(){
             return  get(allProjects).then(data => {
                 this.projects = data
             })
@@ -39,15 +43,9 @@ export const usePinia = defineStore('DataStore', {
             })
         },
         getTaskById(taskid){
-            const allTasksFetched = this.tasks.length
-            ? Promise.resolve()
-            : this.fetchTasks()
-
-
-            return allTasksFetched.then(() => {
-               return this.tasks.find(task => {
-                    return task.id === taskid
-                })
+            return get(`${allTasks}/${taskid}`).then((data) => {
+                this.singleTask = data
+                 return data
             })
         },
         fetchTasksByProjects(projectid){

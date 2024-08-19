@@ -5,7 +5,6 @@
                 :key="`task ${index+1}`"
                 :task="task"
                 :show="taskSettings[index].isTaskDetailOpened"
-                @clicked="onClickedTask(index)"
                 @delete="deleteTask(task.id)"
                 @edit="editTask(task.id)"
             />
@@ -28,14 +27,8 @@
     const taskSettings = computed(() => taskList.value.map(() => ({isMouseOver: false, isTaskDetailOpened: false })))
 
     // Methods
-    function onClickedTask (index) {
-        taskSettings.value[index].isTaskDetailOpened = !taskSettings.value[index].isTaskDetailOpened
-    }
     function deleteTask (taskid) {
-        methods.delete(paths.allTasks, taskid).then(() => {
-            pinia.fetchTasks()
-            pinia.fetchProjects()
-        })
+        deleteTask(taskid)
     } 
     function editTask (taskid) {
         router.push('/form-task/' + taskid)

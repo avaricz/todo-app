@@ -12,10 +12,18 @@
             <template v-if="show">
                 <div class="project-description">{{ description }}</div>
 
-                <template v-if="tasksList " >
-                    <div>
+                <template v-if="tasksList" >
+                    <div class="tasks-wrapper">
                         <ul>
-                            <li v-for="task in tasksList">{{ task.task }}</li>
+                            <TaskItem 
+                                v-for="(task, index) in tasksList"
+                                :key="`task ${index+1}`"
+                                :task="task"
+                                :show-project="false"
+                                @checked="onClickCheckbox(index)"
+                                @delete="deleteTask(task.id)"
+                                @edit="editTask(task.id)"
+                            />
                         </ul>
                         
                     </div> 
@@ -39,6 +47,7 @@
 </template>
 
 <script setup>
+import TaskItem from './TaskItem.vue';
 
     const props = defineProps({
         show: Boolean,
@@ -111,6 +120,12 @@
 .project-description {
     padding-left: 1rem;
     color: $black-lt;
+}
+.tasks-wrapper {
+    ul {
+        list-style-type: none;
+        padding: 1rem 0 1rem 2rem;
+    }
 }
 .project-footer {
     display: flex;

@@ -2,17 +2,17 @@
  ##### ToDo aplikace - admin rozhraní
 
 - [ ] Upravit form pro Project, aby se textarea roytahovala automaticky s pribyvajicim textem
-- [ ] new item at uz project nebo task v levo v baru musi bit routerlink a ne push. Zdvoju je se v neterych pripadech URL
+- [ ] new item at uz project nebo task v levo v baru musi byt routerlink a ne push. Zdvoju je se v neterych pripadech URL
 
 ## FUNKCIONALITY
-- [ ] zobrazit seznam tasks v každém projektu
+- [x] zobrazit seznam tasks v každém projektu
 - [ ] přidat / editovat projekt
-- [ ] přidat /editovat task
+- [x] přidat /editovat task
 - [ ] zobrazit seznam tasks (všech, s filtrem - nedokončené, s prioritou ... atd.)
 - [ ] zobrazit seznam lidí
 - [ ] zobrazit detail člověka s přidělenými úkoly
 - [ ] statistika - kolik má úkolů, kolik z toho splněných, kolik po termínu, kolik před termínem
-- [ ] v seznamech tasks - graficky odlišit hotové / nehotové / nehotové over due
+- [x] v seznamech tasks - graficky odlišit hotové / nehotové / nehotové over due
 - [ ] graficky odlišit tasks, které nemají přiřazené lidi
 - [ ] přidat a editovat lidi
 - [ ] přidávat a odebírat lidi z jednotlivých tasks

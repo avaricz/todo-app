@@ -2,11 +2,11 @@
 const baseURL = "https://sdaapi.glabazna.eu/"
 
 export const paths = {
-    allProjects: "js6projects/",
-    allTasks: "js6tasks/",
-    allPersons: "js6persons/",
-    allPositions: "js6positions/",
-    allPersonstasks: "js6personstasks/",
+    allProjects: "js6projects",
+    allTasks: "js6tasks",
+    allPersons: "js6persons",
+    allPositions: "js6positions",
+    allPersonstasks: "js6personstasks",
     allPersonstasksById: "js6personstasks?taskid=12",
 }
 
@@ -43,13 +43,10 @@ export const methods = {
         .catch(error => console.log('POST Error', error))
     },
     // PUT method
-    put(recordNumber) {
-        return fetch(baseURL + allProjects + recordNumber, { 
+    put(path, recordNumber, body) {
+        return fetch(baseURL + path + "/" + recordNumber, { 
             method: 'PUT',
-            body: JSON.stringify({
-                project: 'AH - Project1',
-                description: 'Adamuv pokus a jeho update 2'
-            })
+            body: JSON.stringify(body)
         })
         .then(response => {
             if(!response.ok) {
@@ -62,7 +59,7 @@ export const methods = {
     },
     // DELETE method
     async delete(path, recordNumber) {
-        return await fetch(baseURL + path + recordNumber, {
+        return await fetch(baseURL + path + "/" + recordNumber, {
             method: 'DELETE',
         })
         .then(response => {

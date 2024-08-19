@@ -2,8 +2,14 @@
     <div class="task-container">
         <div class="task-body"> 
             <div class="header-area">   
-                <div class="checkbox-area">{{task.completed}}</div> 
-                <div class="task-title-area">
+                <div class="checkbox-area">
+                    <i 
+                    class="pi pointer" 
+                    :class="getCheckClass(task.completed)" 
+                    @click="changeCompleted"
+                    ></i>
+                </div> 
+                <div class="task-title-area" :class="{completed: task.completed}">
                     {{ task.task }} 
                 </div>
             </div>
@@ -12,11 +18,15 @@
                  class="label priority-label" 
                  :class="getPriorityClass(task.priority)"
                  >{{ priorityLabels[task.priority-1] }}</span>
-                <span class="label project-label bordered">{{ task.project }}</span>
-                <span class="label">{{ task.date }}</span>
+                <span v-if="showProject" class="label project-label bordered">{{ task.project }}</span>
+                <span
+                 class="label"
+                 :class="isOverdue(task.date)"
+                 @click=""
+                 >{{ task.date }}</span>
                 <i class="pi pi-cog pointer" @click="$emit('edit')"></i>
 
-                <i class="pi pi-times-circle pointer red" @click="$emit('delete')"></i>
+                <i class="pi pi-times-circle pointer red" @click="deleteTask"></i>
                 
             </div>
         </div>   
@@ -24,30 +34,47 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
+import { usePinia } from '@/store';
 
 const props = defineProps({
     task: {
         type: Object,
         required: true,
+    },
+    showProject: {
+        type: Boolean,
+        default: true
     }
  })
 
-const priorityLabels = ref(['low', 'mid', 'high'])
+const pinia = usePinia()
 
+// Labels
+const priorityLabels = ['low', 'mid', 'high']
 const getPriorityClass = (priority) => {
-    return priorityLabels.value[priority-1] + '-priority'
+    return priorityLabels[priority-1] + '-priority'
 }
 
+// Checked icons
+const checkClasses = ref(['pi-circle', 'pi-check-circle'])
+const getCheckClass = (completed) => {
+    return checkClasses.value[completed]
+}
 
- const checked = computed(() => {
-    let status;
-    task.completed === 0 ? status = false : status = true
-    console.log(status)
-    return status
- })
+const isOverdue = (deadline) => {
+    const taskDate = new Date(deadline).getTime()
+    const curDate = new Date().getTime()
+    return (taskDate < curDate) ? "overdue" : ""
+}
 
- 
+// methods
+function changeCompleted() {
+    pinia.changeCompleted(props.task.id, props.task.completed)
+}
+function deleteTask() {
+    pinia.deleteTask(props.task.id)
+}
 </script>
 
 
@@ -58,7 +85,10 @@ const getPriorityClass = (priority) => {
     box-sizing:content-box;
 
     border-radius: 10px;
-    padding: .5rem .3rem;
+    padding: 0rem .3rem;
+    &:hover {
+        background: $gray
+    }
 
     .task-body {
         display:flex;
@@ -70,9 +100,11 @@ const getPriorityClass = (priority) => {
             gap: .5rem;
             min-width: 200px;
             overflow: hidden;
+            align-items: center;
         }
         .checkbox-area {
-            background: lightgray;
+            display: flex;
+            align-items: center;
         }
         .task-title-area {
             display: inline-block;
@@ -93,6 +125,9 @@ const getPriorityClass = (priority) => {
                 border-radius: 10px;
                 text-wrap: nowrap;
             }
+            .overdue {
+                color: red;
+              }
             .priority-label {
                 text-align: center;
                 width: 50px;
@@ -101,8 +136,6 @@ const getPriorityClass = (priority) => {
                 width: 80px;
                 text-align: left;
                 overflow: hidden;
-                text-overflow: ellipsis;
-                background: $gray;
             }
         }
     }
@@ -112,7 +145,7 @@ const getPriorityClass = (priority) => {
     }
     .pointer {
         cursor: pointer;
-        padding: .3rem;
+        padding: 0.3rem;
         border-radius: 5px;
         &:hover {
             background: $gray;
@@ -120,6 +153,10 @@ const getPriorityClass = (priority) => {
     }
     .red:hover {
         color: red;
+    }
+    .completed {
+        text-decoration: line-through;
+        color: $black-lt;
     }
     .low-priority{
         background: $green-lt;

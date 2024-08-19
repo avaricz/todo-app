@@ -56,6 +56,15 @@
     const { allTasks } = paths
 
     // DATA
+    const data = ref({
+        task: "",
+        projectid: "",
+        completed: 0,
+        date: "",
+        priority: 0,
+        
+    })
+
     const projectsList = computed(() => {
        return pinia.projects.map(obj => {
             const {id, project: name} = obj
@@ -67,24 +76,33 @@
         { id: 2, name: "mid" },
         { id: 3, name: "high" }
     ])
-// -------------------------------------------------
-//TODO
+
+
+    const isEdit = computed(() => !!route.params.id)
+
     onMounted(()=>{
-        const index = route.params.id ? pinia.getTaskById(route.params.id) : ""
+        if(isEdit.value){
+            
+            pinia.getTaskById(route.params.id).then(() =>{
+          
+            data.value.task = pinia.singleTask.task
+            data.value.projectid = pinia.singleTask.projectid
+            data.value.date = pinia.singleTask.date
+            data.value.priority = pinia.singleTask.priority
+            data.value.completed = pinia.singleTask.completed
+
+        }) 
+     }
     })
 
-    const data = ref({
-        task: "",
-        projectid: "",
-        completed: 0,
-        date: "",
-        priority: 0,
-        
-    })
-
-// ---------------------------------------------------------
-    // Send data to database
+    // Methods
     function onSubmit () {
+        if (isEdit.value){
+            methods.put(allTasks,route.params.id, data.value).then(() => {
+                router.back()
+            })
+            return
+        }
         methods.post(allTasks, data.value).then(() => {
             router.back()
         })
