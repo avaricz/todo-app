@@ -20,9 +20,7 @@
                                 :key="`task ${index+1}`"
                                 :task="task"
                                 :show-project="false"
-                                @checked="onClickCheckbox(index)"
-                                @delete="deleteTask(task.id)"
-                                @edit="editTask(task.id)"
+                                @change-completed="fetch"
                             />
                         </ul>
                         
@@ -48,6 +46,7 @@
 
 <script setup>
 import TaskItem from './TaskItem.vue';
+import { usePinia } from '@/store';
 
     const props = defineProps({
         show: Boolean,
@@ -58,10 +57,15 @@ import TaskItem from './TaskItem.vue';
         tasksList: Array 
     })
 
+    const pinia = usePinia()
     const emit = defineEmits(['clicked'])
 
     const onClick = () => {
         emit('clicked')
+    }
+
+    function fetch() {
+        pinia.fetchTasksByProjects(13)
     }
 
 </script>

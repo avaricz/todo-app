@@ -1,14 +1,17 @@
 import { defineStore } from "pinia";
 import { methods, paths } from "@/data/db";
+import { useRoute } from 'vue-router'
 
 const { get, put, delete:del} = methods
-const { allProjects, allTasks } = paths
+const { allProjects, allTasks, allPersons } = paths
+const route = useRoute()
 
 export const usePinia = defineStore('DataStore', {
     // Data
     state: () => ({
             projects: [],
             tasks: [],
+            persons: [],
             singleTask: null
     }),
     // Computed
@@ -25,6 +28,7 @@ export const usePinia = defineStore('DataStore', {
             const isDone = + done === 0 ? 1 : 0
             return put(allTasks, taskid, {completed: isDone})
             .then(() => {
+                
                 get(`${allTasks}/${taskid}`)
                 .then(data => {
                     const index = this.tasks.findIndex(task => task.id === taskid)
@@ -40,6 +44,11 @@ export const usePinia = defineStore('DataStore', {
         fetchTasks(){
             return get(allTasks).then(data => {
                 this.tasks = data
+            })
+        },
+        fetchPersons () {
+            return get(allPersons).then(data => {
+                this.persons = data
             })
         },
         getTaskById(taskid){

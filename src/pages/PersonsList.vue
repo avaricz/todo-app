@@ -11,10 +11,15 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue'
     import PersonItem from '@/components/PersonItem.vue'
     import ListView from '@/layouts/ListView.vue';
-    import {methods, paths} from '@/data/db'
+    import { usePinia } from '@/store';
+    import { computed, onMounted } from 'vue'
 
-    const personsList = ref(await methods.get(paths.allPersons))
+    const pinia = usePinia()
+    const personsList = computed(()=> pinia.persons)
+
+    onMounted(()=>{
+        pinia.fetchPersons()
+    })
 </script>

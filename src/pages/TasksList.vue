@@ -4,7 +4,6 @@
                 v-for="(task, index) in taskList"
                 :key="`task ${index+1}`"
                 :task="task"
-                :show="taskSettings[index].isTaskDetailOpened"
                 @delete="deleteTask(task.id)"
                 @edit="editTask(task.id)"
             />
@@ -24,15 +23,6 @@
 
     // Data
     const taskList = computed(() => pinia.tasks)
-    const taskSettings = computed(() => taskList.value.map(() => ({isMouseOver: false, isTaskDetailOpened: false })))
-
-    // Methods
-    function deleteTask (taskid) {
-        deleteTask(taskid)
-    } 
-    function editTask (taskid) {
-        router.push('/form-task/' + taskid)
-    }
 
     // Lifecycle hooks
     onMounted(() => {

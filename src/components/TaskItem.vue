@@ -24,8 +24,7 @@
                  :class="isOverdue(task.date)"
                  @click=""
                  >{{ task.date }}</span>
-                <i class="pi pi-cog pointer" @click="$emit('edit')"></i>
-
+                <i class="pi pi-cog pointer" @click="editTask(task.id)"></i>
                 <i class="pi pi-times-circle pointer red" @click="deleteTask"></i>
                 
             </div>
@@ -34,47 +33,57 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { usePinia } from '@/store';
+    import { ref } from 'vue';
+    import { usePinia } from '@/store';
+    import { useRouter } from 'vue-router'
 
-const props = defineProps({
-    task: {
-        type: Object,
-        required: true,
-    },
-    showProject: {
-        type: Boolean,
-        default: true
+    const props = defineProps({
+        task: {
+            type: Object,
+            required: true,
+        },
+        showProject: {
+            type: Boolean,
+            default: true
+        }
+     })
+
+    const pinia = usePinia()
+    const router = useRouter()
+    const emit = defineEmits(['changeCompleted'])
+
+    // Labels
+    const priorityLabels = ['low', 'mid', 'high']
+    const getPriorityClass = (priority) => {
+        return priorityLabels[priority-1] + '-priority'
     }
- })
 
-const pinia = usePinia()
+    // Done icon
+    const checkClasses = ref(['pi-circle', 'pi-check-circle'])
+    const getCheckClass = (completed) => {
+        return checkClasses.value[completed]
+    }
 
-// Labels
-const priorityLabels = ['low', 'mid', 'high']
-const getPriorityClass = (priority) => {
-    return priorityLabels[priority-1] + '-priority'
-}
+    const isOverdue = (deadline) => {
+        const taskDate = new Date(deadline).getTime()
+        const curDate = new Date().getTime()
+        return (taskDate < curDate) ? "overdue" : ""
+    }
 
-// Checked icons
-const checkClasses = ref(['pi-circle', 'pi-check-circle'])
-const getCheckClass = (completed) => {
-    return checkClasses.value[completed]
-}
+    // Methods
+    function changeCompleted() {
+        pinia.changeCompleted(props.task.id, props.task.completed).then(() => {
 
-const isOverdue = (deadline) => {
-    const taskDate = new Date(deadline).getTime()
-    const curDate = new Date().getTime()
-    return (taskDate < curDate) ? "overdue" : ""
-}
-
-// methods
-function changeCompleted() {
-    pinia.changeCompleted(props.task.id, props.task.completed)
-}
-function deleteTask() {
-    pinia.deleteTask(props.task.id)
-}
+            emit('changeCompleted')
+        })
+    
+    }
+    function deleteTask() {
+        pinia.deleteTask(props.task.id)
+    }
+    function editTask (taskid) {
+        router.push('/form-task/' + taskid)
+    }
 </script>
 
 
@@ -136,6 +145,7 @@ function deleteTask() {
                 width: 80px;
                 text-align: left;
                 overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
     }
