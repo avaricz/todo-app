@@ -3,8 +3,7 @@
         <PersonItem 
                 v-for="(person, index) in personsList"
                 :key="`person ${index+1}`"
-                :person-name="person.first + ' ' + person.last"
-                :person-position="person.position"
+                :person="person"
                 :number-of-tasks="7"
                 />
     </ListView>
@@ -13,8 +12,8 @@
 <script setup>
     import PersonItem from '@/components/PersonItem.vue'
     import ListView from '@/layouts/ListView.vue';
-    import { usePinia } from '@/store';
     import { computed, onMounted } from 'vue'
+    import { usePinia } from '@/store';
 
     const pinia = usePinia()
     const personsList = computed(()=> pinia.persons)

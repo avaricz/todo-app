@@ -9,7 +9,7 @@
 - [ ] přidat / editovat projekt
 - [x] přidat /editovat task
 - [ ] zobrazit seznam tasks (všech, s filtrem - nedokončené, s prioritou ... atd.)
-- [ ] zobrazit seznam lidí
+- [x] zobrazit seznam lidí
 - [ ] zobrazit detail člověka s přidělenými úkoly
 - [ ] statistika - kolik má úkolů, kolik z toho splněných, kolik po termínu, kolik před termínem
 - [x] v seznamech tasks - graficky odlišit hotové / nehotové / nehotové over due

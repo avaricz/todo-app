@@ -34,7 +34,7 @@
         justify-content: space-between;
         width: 100%;
         background: $gray;
-        padding: .7rem ;
+        height: 3rem;
         position: sticky;
         top: 0;
         .sidebar-icon {

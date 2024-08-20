@@ -4,9 +4,9 @@
 
         <div class="avatar"> {{ initials }}</div>
 
-        <div class="name-area"> {{ personName }} </div>
+        <div class="name-area"> {{ person.first + " " + person.last }} </div>
 
-        <div class="position-area"> {{ personPosition }} </div>
+        <div class="position-area"> {{ person.position }} </div>
 
         <div class="task-area">
 
@@ -25,13 +25,9 @@
 import { ref } from 'vue'
 
 const props = defineProps({
-    personName: {
-        type: String,
+    person: {
+        type: Object,
         required: true,
-    },
-    personPosition: {
-        type: String,
-        default: "",
     },
     numberOfTasks: {
         type: Number,
@@ -43,7 +39,8 @@ const props = defineProps({
     }
 })
 
-const initials = ref(props.personName[0])
+const initials = ref(props.person.first[0].toUpperCase() + props.person.last[0].toUpperCase())
+console.log(initials.value)
 
 </script>
 
@@ -66,15 +63,15 @@ const initials = ref(props.personName[0])
         align-items: center;
         justify-content: center;
 
-        width: 2.4rem;
-        height: 2.4rem;
+        width: 2rem;
+        height: 2rem;
         background: $gray;
 
-        font-size: 1.4rem;
+        font-size: 1rem;
         font-weight: bold;
     }
     .name-area {
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 500;
         margin-left: 1rem;
     }
@@ -82,6 +79,7 @@ const initials = ref(props.personName[0])
     .task-area, .position-area, .name-area {
         display: flex;
         align-items: center;
+        border: 1px solid black;
         gap: .3rem;
         img {
             height: 1rem;

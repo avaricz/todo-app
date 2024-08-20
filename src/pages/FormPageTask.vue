@@ -32,7 +32,7 @@
                 size="small"
             />
             </div> 
-            <Button label="Add Task"  @click="onSubmit"/>
+            <Button :label="buttonLabel"  @click="onSubmit"/>
                 
         </form>
 
@@ -77,6 +77,7 @@
         { id: 3, name: "high" }
     ])
 
+    const buttonLabel = ref(route.params.id ? "Edit task" : "Create task")
 
     const isEdit = computed(() => !!route.params.id)
 

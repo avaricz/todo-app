@@ -29,7 +29,7 @@
         
         padding: 0;
         .navigation-wrapper {
-            padding: 3rem 3rem 1.5rem;
+            padding: 3.5rem 3rem 1.5rem;
         }
         .projects-wrapper {
             padding: 1.5rem 2rem;

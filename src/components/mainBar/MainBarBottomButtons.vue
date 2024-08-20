@@ -1,26 +1,45 @@
 <template>
     <div class="buttons-container">
-        <button class="button" @click="addProject">+ Project</button>
-        <button class="button" @click="addTask">+ Task</button>
-        <button class="button" @click="addPerson">+ Person</button>
+        
+        <Button  size="small" text class="main-button">
+            <i class="pi pi-cog"></i>
+        </Button>
+        
+        <Button @click="showMenu" text class="main-button">
+            <i class="pi pi-plus"></i>
+        </Button>
+        <div v-if="show" class="buttons-wrapper">
+            <Button label="Secondary" @click="addTask" >New task</Button>
+            <Button label="Secondary" @click="addProject" >New project</Button>
+            <Button  @click="addPerson" >New person</Button>
+        </div>
 
-       
     </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
+import Button from 'primevue/button';
+import { ref } from 'vue';
 
 const router = useRouter()
 
+const show = ref(true)
+function showMenu () {
+    show.value = !show.value
+}
+
 const addProject = () => {
     router.push('form-project')
+    showMenu()
 }
 const addTask = () => {
     router.push('form-task')
+    showMenu()
 }
 const addPerson = () => {
     router.push('form-person')
+    showMenu()
 }
 
 </script>
@@ -29,26 +48,26 @@ const addPerson = () => {
 @import '@/assets/base.scss';
 
 .buttons-container {
+    position: relative;
     display: flex;
-    justify-content:center;
-}
-.button {
-    flex-grow: 0;
-
-    cursor: pointer;
-
-    font-weight: bold;
-    padding: .4rem .7rem;
-
-    border: 0;
-    border-radius: 50px;
-    border-top: 0px solid $black-lt;
-    &:hover {
-        background-color: $gray-dr;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1rem;
+    height: 3rem;
+    padding-right: 1rem;
+    .buttons-wrapper {
+        position: absolute;
+        bottom: 50px;
+        right: 0;
+        margin-right: 1rem;
+        display: flex;
+        gap: .2rem;
+        flex-direction: column;
+        .main-button {
+            &:hover {
+                background: $gray-dr;
+            }
+        }
     }
-    &:active {
-        background-color: $gray;
-    }
 }
-
 </style>
