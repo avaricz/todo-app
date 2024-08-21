@@ -10,7 +10,7 @@ export const usePinia = defineStore('DataStore', {
             tasks: [],
             persons: [],
             singleTask: null,
-            positions: []
+            positions: [],
     }),
     // Computed
     getters: {
@@ -20,6 +20,11 @@ export const usePinia = defineStore('DataStore', {
         deleteTask (taskid) {
             return del(`${allTasks}/${taskid}`).then(() => {
                 Promise.all([this.fetchTasks(),this.fetchProjects()])
+            })
+        },
+        deletePosition(positionid) {
+            return del(`${allPositions}/${positionid}`).then(()=> {
+                this.fetchPositions()
             })
         },
         changeCompleted (taskid, done) {

@@ -47,7 +47,7 @@ const router = createRouter({
     {
       path: '/edit-positions',
       name: 'edit-positions',
-      component: () => import ('../pages/FormPagePositions.vue')
+      component: () => import ('../pages/SettingsPagePositions.vue')
     }
   ]
 })
