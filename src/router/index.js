@@ -43,6 +43,11 @@ const router = createRouter({
       path: '/form-person',
       name: 'form-person',
       component: () => import ('../pages/FormPagePerson.vue')
+    },
+    {
+      path: '/edit-positions',
+      name: 'edit-positions',
+      component: () => import ('../pages/FormPagePositions.vue')
     }
   ]
 })

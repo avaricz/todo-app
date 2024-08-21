@@ -1,17 +1,51 @@
 <template>
     <div class="buttons-container">
         
-        <Button  size="small" text class="main-button">
+        <Button
+        size="small"
+        text class="main-button"
+        @click="showSettings"
+        >
             <i class="pi pi-cog"></i>
         </Button>
+
+        <div
+        v-if="showSettingsMenu"
+        class="settings-menu menu">
+            <Button 
+            class="btn"
+            @click="editPositions"
+            text
+            >Edit positions</Button>
+        </div>
         
-        <Button @click="showMenu" text class="main-button">
+        <Button
+        @click="showMenu"
+        text
+        class="main-button"
+        >
             <i class="pi pi-plus"></i>
         </Button>
-        <div v-if="show" class="buttons-wrapper">
-            <Button label="Secondary" @click="addTask" >New task</Button>
-            <Button label="Secondary" @click="addProject" >New project</Button>
-            <Button  @click="addPerson" >New person</Button>
+
+        <div
+        v-if="show"
+        class="new-item-menu menu"
+        >
+            <Button 
+            class="btn"
+            @click="addTask" 
+            text 
+            >New task</Button>
+
+            <Button 
+            @click="addProject" 
+            text 
+            >New project</Button>
+
+            <Button  
+            @click="addPerson" 
+            text 
+            >New person</Button>
         </div>
 
     </div>
@@ -23,6 +57,11 @@ import Button from 'primevue/button';
 import { ref } from 'vue';
 
 const router = useRouter()
+
+const showSettingsMenu = ref(false)
+function showSettings () {
+    showSettingsMenu.value = !showSettingsMenu.value
+}
 
 const show = ref(false)
 function showMenu () {
@@ -40,7 +79,10 @@ const addPerson = () => {
     router.push('form-person')
     showMenu()
 }
-
+const editPositions = () =>{
+    router.push('edit-positions')
+    showSettings()
+}
 </script>
 
 <style lang="scss" scoped>
@@ -54,19 +96,34 @@ const addPerson = () => {
     gap: 1rem;
     height: 3rem;
     padding-right: 1rem;
-    .buttons-wrapper {
+    .main-button {
+        &:hover {
+            background: $gray-dr;
+        }
+    }
+    .menu {
         position: absolute;
         bottom: 50px;
-        right: 0;
-        margin-right: 1rem;
         display: flex;
         gap: .2rem;
         flex-direction: column;
-        .main-button {
+        box-shadow: 0 0 5px -1px $black-lt;
+        background: $gray;
+        padding: .3rem;
+        border-radius: 10px;
+        .btn{
             &:hover {
-                background: $gray-dr;
+                background: $gray-dr
             }
         }
+    }
+    .new-item-menu {
+        right: 0;
+        margin-right: .5rem;
+    }
+    .settings-menu {
+        left: 0;
+        margin-left: .5rem;
     }
 }
 </style>
