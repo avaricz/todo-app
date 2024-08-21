@@ -27,6 +27,9 @@ export const usePinia = defineStore('DataStore', {
                 this.fetchPositions()
             })
         },
+        getPositionById(positionid) {
+            return get(`${allPositions}/${positionid}`)
+        },
         changeCompleted (taskid, done) {
             const isDone = + done === 0 ? 1 : 0
             return put(allTasks, taskid, {completed: isDone})

@@ -7,8 +7,9 @@
             v-for="position in positionsList" 
             :key="position.id"
             :position="position"
+            @editPosition="editPosition"
             />
-                    
+
             <div class="position-form">
                 <InputText 
                 style="background: inherit;"
@@ -39,35 +40,43 @@
 <script setup>
     import PositionItem from '@/components/PositionItem.vue';
     import SettingsView from '@/layouts/SettingsView.vue';
-    import InputText from 'primevue/inputtext';
-    import { methods, paths } from '@/data/db'
     import { ref, computed, onMounted } from 'vue';
-    import { usePinia } from '@/store'
+    import InputText from 'primevue/inputtext';
+    import { methods, paths } from '@/data/db';
+    import { usePinia } from '@/store';
 
     const pinia = usePinia()
     const { post } = methods
     const { allPositions } = paths
 
-    const positionValue = ref({
-        position: ""
-    })
-
-    const positionsList = computed(()=>{
-        return pinia.positions
-    })
+    // Data
+    
+    const positionValue = ref({position: ""})
+    const positionsList = computed(()=> pinia.positions.sort((a,b) => a.id - b.id))
+   
 
     // Methods
+
+    function editPosition (payload) {
+        pinia.getPositionById(payload)
+    }
+
     function createPosition() {
         post(allPositions, positionValue.value).then(() => {
             pinia.fetchPositions()
         })
         clearInput()
     }
+
     function clearInput() {
         positionValue.value.position = ""
     }
+
+    // Lifecycle hooks
     onMounted(()=>{
-        pinia.fetchPositions()
+        pinia.fetchPositions().then(()=> {
+            console.log(positionsList.value)
+        })
     })
 
 </script>
