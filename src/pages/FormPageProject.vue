@@ -1,67 +1,49 @@
 <template>
 
         <FormView>
-            <form  @submit.prevent="onSubmit" class="form">
+            <form   class="form">
                 
-                <InputText :settings="formSettings.projectName" />
-
-                <InputTextarea :settings="formSettings.projectDescription" />
-
-                <div class="btn-container">
-                    <SubmitButton 
-                    :label="formSettings.button.label"
-                    :type="formSettings.button.type"/>
-                </div>
+                <InputText
+                 v-model="data.project"
+                 placeholder="New project"
+                 />
+                <Textarea v-model="data.description" autoResize rows="5" cols="30" />
+                <Button :label="buttonLabel"  @click="onSubmit"/>
             </form>
         </FormView>
 
 </template>
 
 <script setup>
-import SubmitButton from '@/components/form/StandardButton.vue';
-import InputTextarea from '@/components/form/InputTextarea.vue';
-import InputText from '@/components/form/InputText.vue';
-import FormView from '@/layouts/FormView.vue'
-import { methods, paths } from '@/data/db'
-import { useRouter } from 'vue-router';
-import {ref} from 'vue'
+import FormView from '@/layouts/FormView.vue';
+import { methods, paths } from '@/data/db';
+import InputText from 'primevue/inputtext';
+import Textarea from 'primevue/textarea';
+import { useRouter, useRoute } from 'vue-router';
+import Button from 'primevue/button';
 import { usePinia } from '@/store';
+import {ref} from 'vue'
 
+const { allProjects } = paths
+const { post } = methods
+const route = useRoute()
 const router = useRouter()
 const pinia = usePinia()
 
-const formSettings = ref({
-    projectName: {
-        id: "project-name",
-        placeholder: "Enter project name",
-        inputValue: "",
-        maxlength: 255
-    },
-    projectDescription: {
-        id: "project-description",
-        placeholder: "Enter project description",
-        inputValue: "",
-        rows: 3
-    },
-    button: {
-        label: "Create project",
-        type: "submit"
-    }
-})
+// DATA
+const data = ref({
+        project: "",
+        description: ""        
+    })
+
+    const buttonLabel = ref(route.params.id ? "Edit project" : "Create project")
 
 // Methods
 function onSubmit () {
-    const { allProjects } = paths
-    const newProjectBody = {
-        project: formSettings.value.projectName.inputValue,
-        description: formSettings.value.projectDescription.inputValue
-    }
-    methods.post(allProjects, newProjectBody).then(() => {
+    post(allProjects, data.value).then(() => {
         pinia.fetchProjects()
         router.push('/projects')
     })
-
-  
 }
 </script>
 
@@ -76,11 +58,6 @@ function onSubmit () {
     box-shadow: 0 0 5px -1px $black-lt;
 
     padding: 1rem;
-}
-
-
-.btn-container {
-    display: flex;
-    justify-content: end;
+    max-width: 500px
 }
 </style>

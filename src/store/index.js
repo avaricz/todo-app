@@ -1,11 +1,8 @@
 import { defineStore } from "pinia";
 import { methods, paths } from "@/data/db";
-import { useRoute } from 'vue-router'
 
 const { get, put, delete:del} = methods
 const { allProjects, allTasks, allPersons } = paths
-const route = useRoute()
-
 export const usePinia = defineStore('DataStore', {
     // Data
     state: () => ({

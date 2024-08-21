@@ -24,11 +24,10 @@ import { ref } from 'vue';
 
 const router = useRouter()
 
-const show = ref(true)
+const show = ref(false)
 function showMenu () {
     show.value = !show.value
 }
-
 const addProject = () => {
     router.push('form-project')
     showMenu()

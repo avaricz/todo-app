@@ -23,7 +23,7 @@
     const { get, delete:del } = methods
     const { allPersons, allPositions, allProjects, allTasks,allPersonstasks } = paths
 
-    //const projectsList = await get(allProjects)
+    const projectsList = await get(allProjects)
     //const tasksList = await get(allTasks)
     const personsList = await get(allPersons)
     const positionsList = await get(allPositions)
