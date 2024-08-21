@@ -13,9 +13,8 @@
                 optionValue="id" 
                 optionLabel="name" 
                 placeholder="Projects" 
-                class="w-full md:w-56" 
-                size="small" 
-                @click="console.log(e)" />
+                class="w-full md:w-56"
+                ></Select>
 
                 <Select  style="width: 33%"
                 v-model="data.priority"
@@ -24,15 +23,17 @@
                 optionValue="id"
                 placeholder="Priority"
                 class="w-full md:w-56"
-                size="small" />
+                ></Select>
 
 
                 <DatePicker style="width: 33%"
                 v-model="data.date"  
-                size="small"
-            />
+                />
             </div> 
-            <Button :label="buttonLabel"  @click="onSubmit"/>
+            <Button
+            :label="buttonLabel"
+            @click="onSubmit"
+            ></Button>
                 
         </form>
 
@@ -40,15 +41,15 @@
 </template>
 
 <script setup>
+    import { useRoute, useRouter } from 'vue-router';
     import FormView from '@/layouts/FormView.vue';
     import DatePicker from 'primevue/datepicker';
+    import { computed,onMounted,ref } from 'vue';
     import InputText from 'primevue/inputtext';
     import { methods, paths } from '@/data/db';
     import Select from 'primevue/select';
     import Button from 'primevue/button';
     import { usePinia } from '@/store';
-    import { computed,onMounted,ref } from 'vue';
-    import { useRoute, useRouter } from 'vue-router'
 
     const pinia = usePinia()
     const route = useRoute()

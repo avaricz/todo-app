@@ -1,58 +1,77 @@
 <template>
 
     <FormView>
-        <form  @submit.prevent="onSubmit" class="form">
-            
-            <InputText :settings="formSettings.firstName" />
+        <form class="form">
 
-            <InputText :settings="formSettings.lastName" />
+            <InputText 
+            v-model="data.first" 
+            placeholder="First name"
+            />
 
-            <label for="position">Position: </label>
-                <InputSelect :settings="formSettings.positions" />
+            <InputText
+            v-model="data.last"
+            placeholder="Last name" 
+            />
 
-            <div class="btn-container">
-                <SubmitButton 
-                :label="formSettings.button.label"
-                :type="formSettings.button.type"/>
-            </div>
+            <Select
+            v-model="data.positionid" 
+            :options="positionList" 
+            optionValue="id" 
+            optionLabel="name" 
+            placeholder="Positions" 
+            class="w-full md:w-56"
+            ></Select>
+
+            <Button
+            :label="buttonLabel"
+            @click="onSubmit"
+            ></Button>
         </form>
     </FormView>
 
 </template>
 
 <script setup>
-import {ref} from 'vue'
-import FormView from '@/layouts/FormView.vue'
-import InputText from '@/components/form/InputText.vue';
-import SubmitButton from '@/components/form/StandardButton.vue';
-import InputSelect from '@/components/form/inputSelect.vue';
+import { onMounted, ref, computed} from 'vue';
+import FormView from '@/layouts/FormView.vue';
+import InputText from 'primevue/inputtext';
+import { useRoute, useRouter } from 'vue-router';
+import Select from 'primevue/select';
+import Button from 'primevue/button';
+import { usePinia } from '@/store';
+import { methods, paths} from '@/data/db'
 
-const formSettings = ref({
-    firstName: {
-        id: "first-name",
-        placeholder: "Enter your firstname",
-        inputValue: "",
-        maxlength: 255
-    },
-    lastName: {
-        id: "last-name",
-        placeholder: "Enter your lastname",
-        inputValue: "",
-        maxlength: 255
-    },
-    positions: {
-        inputValue: ""
-    },
-    button: {
-        label: "Add person",
-        type: "submit"
-    }
+const pinia = usePinia()
+const route = useRoute()
+const router = useRouter()
+const { post, put } = methods
+const { allPersons } = paths
+
+// DATA
+const data = ref({
+        first: "",
+        last: "",
+        positionid: null,        
+    })
+const buttonLabel = ref(route.params.id ? "Edit person" : "Create person")
+
+const positionList = computed(()=> {
+    return pinia.positions.map(obj => {
+        const {id, position:name} = obj
+        return {id, name}
+    })
 })
-
 // Methods
 const onSubmit = () => {
-
+    console.log(data.value)
+    post(allPersons, data.value).then(()=> router.back())
 }
+onMounted(()=> {
+    pinia.fetchPositions().then(()=> {
+
+        console.log(pinia.positions)
+    })
+})
 </script>
 
 <style lang="scss" scoped>
@@ -66,10 +85,5 @@ const onSubmit = () => {
     box-shadow: 0 0 5px -1px $black-lt;
 
     padding: 1rem;
-}
-
-.btn-container {
-    display: flex;
-    justify-content: end;
 }
 </style>
