@@ -48,6 +48,7 @@
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/base.scss';
 .position-container {
     display: flex;
     align-items: center;
@@ -67,6 +68,11 @@
 }
 .pointer {
     cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 5px;
+    &:hover {
+        background: $gray-dr;
+    }
 }
 .red {
     &:hover {

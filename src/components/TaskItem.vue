@@ -158,7 +158,7 @@
         padding: 0.3rem;
         border-radius: 5px;
         &:hover {
-            background: $gray;
+            background: $gray-dr;
         }
     }
     .red:hover {

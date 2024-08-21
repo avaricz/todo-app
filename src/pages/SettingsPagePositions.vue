@@ -108,6 +108,7 @@
 
 .pointer{
     cursor: pointer;
+    padding: .3rem;
 }
 .red {
     &:hover {

@@ -1,7 +1,7 @@
  # JS6 - final project
  ##### ToDo aplikace - admin rozhraní
 
-- [ ] Upravit form pro Project, aby se textarea roytahovala automaticky s pribyvajicim textem
+- [x] Upravit form pro Project, aby se textarea roytahovala automaticky s pribyvajicim textem
 - [ ] new item at uz project nebo task v levo v baru musi byt routerlink a ne push. Zdvoju je se v neterych pripadech URL
 
 ## FUNKCIONALITY
@@ -16,7 +16,7 @@
 - [ ] graficky odlišit tasks, které nemají přiřazené lidi
 - [ ] přidat a editovat lidi
 - [ ] přidávat a odebírat lidi z jednotlivých tasks
-- [ ] vymyslet nějak způsob přidávání positions
+- [x] vymyslet nějak způsob přidávání positions
 - [ ] mazání záznamů
 - [ ] nelze smazat projekt, pokud obsahuje tasks
 - [ ] když mažeme task, automaticky smažeme i k němu přidělené lidi (personstasks tabulka)
