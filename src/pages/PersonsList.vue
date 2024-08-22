@@ -16,7 +16,8 @@
     import { usePinia } from '@/store';
 
     const pinia = usePinia()
-    const personsList = computed(()=> pinia.persons)
+    const personsList = computed(()=> pinia.persons.sort((a,b) => a.id - b.id
+    ))
 
     onMounted(()=>{
         pinia.fetchPersons()
