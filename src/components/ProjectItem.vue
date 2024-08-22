@@ -1,12 +1,28 @@
 <template>
 
-    <div class="project-container">
+    <div
+    class="project-container"
+    @mouseover="mouseOver"
+    @mouseleave="mouseLeave"
+    
+    >
 
-        <div class="project-header">
-            <div class="project-name">{{ project.project }} 
-                <span>details</span><!-- TODO - po kliknutí na Name otevřít kompletní detail projektu se všemi členy, todos, atd.. -->
-                <i class="pi pi-cog" @click="onClickEdit"></i>
-                <i class="pi pi-trash" @click="onClickDelete"></i>
+        <div
+        class="project-header"
+        >
+            <div class="project-title-area">
+                <div 
+                class="project-name"
+                >
+                {{ project.project }} 
+                <span>detail</span>
+                </div>
+                <div 
+                v-if="isMouseOver || show"
+                class="icons-area">
+                    <i class="pi pi-cog pointer" @click="onClickEdit"></i>
+                    <i class="pi pi-trash pointer red" @click="onClickDelete"></i>
+                </div>
             </div>
                 
             <div class="arrow-area" @click="onClickArrow">
@@ -53,6 +69,7 @@
 import TaskItem from './TaskItem.vue';
 import { useRouter } from 'vue-router';
 import { usePinia } from '@/store';
+import { ref } from 'vue';
 
     const props = defineProps({
         project: {
@@ -68,7 +85,16 @@ import { usePinia } from '@/store';
     const pinia = usePinia()
     const emit = defineEmits(['clicked'])
 
+    // Data
+    const isMouseOver = ref(false)
+
     // Methods
+    function mouseOver () {
+        isMouseOver.value = true
+    }
+    function mouseLeave () {
+        isMouseOver.value = false
+    }
     function onClickEdit () {
         router.push(`form-project/${props.project.id}`)
     }
@@ -97,27 +123,46 @@ import { usePinia } from '@/store';
     border-radius: 10px;
 
     padding: 1rem;
+    min-width: 500px;
 }
 .project-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .project-name {
+    gap: 1rem;
+    .project-title-area {
         display: flex;
         align-items: center;
-
-        font-size: 1.4rem;
-        font-weight: bold;
-
-        cursor: pointer;
+        justify-content: space-between;
+        width: 100%;
+        height: 28px;
+        .project-name {
+            cursor: pointer;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: bold;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            &:hover{
+                span{
+                    display: block;
+                }
+            }
+        }
+        .icons-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
         span {
-            display: block;
+            display: none;
             font-size: .8rem;
             color: $black-lt;
             background: $gray;
-            padding: .3rem .7rem;
+            padding: .2rem .7rem;
             border-radius: 50px;
-            margin-left: 1rem;
         }
     } 
     .arrow-area {
@@ -156,8 +201,17 @@ import { usePinia } from '@/store';
 .opened {
     transform: rotateX(180deg);
 }
-
-
-
-
+.pointer {
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 5px;
+    &:hover {
+        background: $gray;
+    }
+}
+.red{
+    &:hover {
+        color: red;
+    }
+}
 </style>

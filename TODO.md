@@ -6,7 +6,7 @@
 
 ## FUNKCIONALITY
 - [x] zobrazit seznam tasks v každém projektu
-- [ ] přidat / editovat projekt
+- [x] přidat / editovat projekt
 - [x] přidat /editovat task
 - [ ] zobrazit seznam tasks (všech, s filtrem - nedokončené, s prioritou ... atd.)
 - [x] zobrazit seznam lidí
