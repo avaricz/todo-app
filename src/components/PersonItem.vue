@@ -9,7 +9,9 @@
         </div>
 
         <div class="icons-area">
-            <i class="pi pi-user-edit pointer"></i>
+            <i class="pi pi-user-edit pointer"
+            @click="editPerson"
+            ></i>
             <i
             class="pi pi-times-circle pointer red"
             @click="deletePerson"
@@ -20,10 +22,12 @@
 </template>
 
 <script setup>
+    import { useRouter } from 'vue-router';
     import { usePinia } from '@/store';
     import { ref } from 'vue'
 
     const pinia = usePinia()
+    const router = useRouter()
 
     const props = defineProps({
         person: {
@@ -45,6 +49,9 @@
     //Methods
     function deletePerson() {
         pinia.deletePerson(props.person.id)
+    }
+    function editPerson() {
+        router.push('/form-person/' + props.person.id)
     }
 
 </script>

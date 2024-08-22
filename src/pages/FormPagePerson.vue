@@ -32,14 +32,14 @@
 </template>
 
 <script setup>
+    import { useRoute, useRouter } from 'vue-router';
     import { onMounted, ref, computed} from 'vue';
     import FormView from '@/layouts/FormView.vue';
     import InputText from 'primevue/inputtext';
-    import { useRoute, useRouter } from 'vue-router';
+    import { methods, paths} from '@/data/db';
     import Select from 'primevue/select';
     import Button from 'primevue/button';
     import { usePinia } from '@/store';
-    import { methods, paths} from '@/data/db'
 
     const pinia = usePinia()
     const route = useRoute()
@@ -61,9 +61,16 @@
             return {id, name}
         })
     })
+    const isEdit = computed(()=> !!route.params.id)
     // Methods
     function onSubmit () {
         console.log(data.value)
+        if(isEdit.value){
+            put(allPersons, route.params.id, data.value).then(() => {
+                router.back()
+            })
+            return
+        }
         post(allPersons, data.value).then(()=> router.back()).then(()=> {
             router.back()
             pinia.fetchProjects()
@@ -71,8 +78,15 @@
     }
     // Lifecycle hooks
     onMounted(()=> {
-        pinia.fetchPositions().then(()=> {
-        })
+        pinia.fetchPositions()
+        if(isEdit.value) {
+
+            pinia.getPersonById(route.params.id).then((person) => {
+                data.value.first = person.first
+                data.value.last = person.last
+                data.value.positionid = person.positionid
+            })
+        }
     })
 </script>
 

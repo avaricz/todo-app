@@ -50,6 +50,11 @@ const router = createRouter({
       component: () => import ('../pages/FormPagePerson.vue')
     },
     {
+      path: '/form-person/:id',
+      name: 'person-edit',
+      component: () => import ('../pages/FormPagePerson.vue')
+    },
+    {
       path: '/edit-positions',
       name: 'edit-positions',
       component: () => import ('../pages/SettingsPagePositions.vue')
