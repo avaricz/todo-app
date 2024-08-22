@@ -2,7 +2,6 @@
  ##### ToDo aplikace - admin rozhraní
 
 - [x] Upravit form pro Project, aby se textarea roytahovala automaticky s pribyvajicim textem
-- [ ] new item at uz project nebo task v levo v baru musi byt routerlink a ne push. Zdvoju je se v neterych pripadech URL
 
 ## FUNKCIONALITY
 - [x] zobrazit seznam tasks v každém projektu
@@ -17,7 +16,7 @@
 - [ ] přidat a editovat lidi
 - [ ] přidávat a odebírat lidi z jednotlivých tasks
 - [x] vymyslet nějak způsob přidávání positions
-- [ ] mazání záznamů
+- [x] mazání záznamů
 - [ ] nelze smazat projekt, pokud obsahuje tasks
 - [ ] když mažeme task, automaticky smažeme i k němu přidělené lidi (personstasks tabulka)
 - [ ] když smažeme člověka, auutomaticky smžeme záznamy v personstasks, které se ho týkají - nemůžeme mazat position, pokud se k ní vážou lidi
