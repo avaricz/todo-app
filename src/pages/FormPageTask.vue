@@ -89,6 +89,7 @@
             return
         }
         post(allTasks, data.value).then(() => {
+            pinia.fetchProjects()
             router.back()
         })
     }

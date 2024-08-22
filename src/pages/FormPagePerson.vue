@@ -64,13 +64,14 @@
     // Methods
     function onSubmit () {
         console.log(data.value)
-        post(allPersons, data.value).then(()=> router.back())
+        post(allPersons, data.value).then(()=> router.back()).then(()=> {
+            router.back()
+            pinia.fetchProjects()
+        })
     }
     // Lifecycle hooks
     onMounted(()=> {
         pinia.fetchPositions().then(()=> {
-
-            console.log(pinia.positions)
         })
     })
 </script>

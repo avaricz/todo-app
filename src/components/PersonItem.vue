@@ -10,31 +10,42 @@
 
         <div class="icons-area">
             <i class="pi pi-user-edit pointer"></i>
-            <i class="pi pi-times-circle pointer red"></i>
+            <i
+            class="pi pi-times-circle pointer red"
+            @click="deletePerson"
+            ></i>
         </div>
     </div>
 
 </template>
 
 <script setup>
-import { ref } from 'vue'
+    import { usePinia } from '@/store';
+    import { ref } from 'vue'
 
-const props = defineProps({
-    person: {
-        type: Object,
-        required: true,
-    },
-    numberOfTasks: {
-        type: Number,
-        required: true,
-    },
-    overdueLabel: {
-        type: String,
-        default: "overdue"
+    const pinia = usePinia()
+
+    const props = defineProps({
+        person: {
+            type: Object,
+            required: true,
+        },
+        numberOfTasks: {
+            type: Number,
+            required: true,
+        },
+        overdueLabel: {
+            type: String,
+            default: "overdue"
+        }
+    })
+
+    const initials = ref(props.person.first[0].toUpperCase() + props.person.last[0].toUpperCase())
+
+    //Methods
+    function deletePerson() {
+        pinia.deletePerson(props.person.id)
     }
-})
-
-const initials = ref(props.person.first[0].toUpperCase() + props.person.last[0].toUpperCase())
 
 </script>
 
