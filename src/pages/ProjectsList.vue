@@ -3,8 +3,7 @@
         <ProjectItem 
             v-for="(project, index) in projectList"
             :key="`project ${index+1}`"
-            :name="project.project"
-            :description="project.description"
+            :project="project"
             :tasks-list="project.tasks"
             :people="peopleWorkingOnProject"
             :deadline="deadline"
@@ -17,9 +16,9 @@
 
 <script setup>
     import ProjectItem from '@/components/ProjectItem.vue';
+    import { ref ,computed, onMounted } from 'vue';
     import ListView from '@/layouts/ListView.vue';
     import { usePinia } from '@/store';
-    import { ref ,computed } from 'vue'
 
     const pinia = usePinia()
 
@@ -29,13 +28,17 @@
     const deadline = computed(() => "13-4-2023")
     const peopleWorkingOnProject = computed(() => 4)
 
-    
     // Methods
     function onClickedProject (index) {
         const projectId = projectList.value[index].id
         pinia.fetchTasksByProjects(projectId)
         isProjectDetailOpened.value[index] = !isProjectDetailOpened.value[index]
     }
+
+    // Lifecycle hooks
+    onMounted(()=>{
+        pinia.fetchProjects()
+    })
 
 
     /*     

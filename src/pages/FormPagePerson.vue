@@ -32,46 +32,47 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed} from 'vue';
-import FormView from '@/layouts/FormView.vue';
-import InputText from 'primevue/inputtext';
-import { useRoute, useRouter } from 'vue-router';
-import Select from 'primevue/select';
-import Button from 'primevue/button';
-import { usePinia } from '@/store';
-import { methods, paths} from '@/data/db'
+    import { onMounted, ref, computed} from 'vue';
+    import FormView from '@/layouts/FormView.vue';
+    import InputText from 'primevue/inputtext';
+    import { useRoute, useRouter } from 'vue-router';
+    import Select from 'primevue/select';
+    import Button from 'primevue/button';
+    import { usePinia } from '@/store';
+    import { methods, paths} from '@/data/db'
 
-const pinia = usePinia()
-const route = useRoute()
-const router = useRouter()
-const { post, put } = methods
-const { allPersons } = paths
+    const pinia = usePinia()
+    const route = useRoute()
+    const router = useRouter()
+    const { post, put } = methods
+    const { allPersons } = paths
 
-// DATA
-const data = ref({
-        first: "",
-        last: "",
-        positionid: null,        
+    // DATA
+    const data = ref({
+            first: "",
+            last: "",
+            positionid: null,        
+        })
+    const buttonLabel = ref(route.params.id ? "Edit person" : "Create person")
+
+    const positionList = computed(()=> {
+        return pinia.positions.map(obj => {
+            const {id, position:name} = obj
+            return {id, name}
+        })
     })
-const buttonLabel = ref(route.params.id ? "Edit person" : "Create person")
+    // Methods
+    function onSubmit () {
+        console.log(data.value)
+        post(allPersons, data.value).then(()=> router.back())
+    }
+    // Lifecycle hooks
+    onMounted(()=> {
+        pinia.fetchPositions().then(()=> {
 
-const positionList = computed(()=> {
-    return pinia.positions.map(obj => {
-        const {id, position:name} = obj
-        return {id, name}
+            console.log(pinia.positions)
+        })
     })
-})
-// Methods
-const onSubmit = () => {
-    console.log(data.value)
-    post(allPersons, data.value).then(()=> router.back())
-}
-onMounted(()=> {
-    pinia.fetchPositions().then(()=> {
-
-        console.log(pinia.positions)
-    })
-})
 </script>
 
 <style lang="scss" scoped>
@@ -85,5 +86,6 @@ onMounted(()=> {
     box-shadow: 0 0 5px -1px $black-lt;
 
     padding: 1rem;
+    max-width: 500px;
 }
 </style>

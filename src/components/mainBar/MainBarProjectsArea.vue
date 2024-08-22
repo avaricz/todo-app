@@ -6,7 +6,10 @@
 
         <ul class="list-of-projects">
             
-            <li v-for="project in projectsList">
+            <li
+            v-for="project in projectsList"
+            :key="project.id"
+            >
                 <img src="@/img/icons/project.svg" alt="">
                 {{ project.project }}
                 <StandardButton 
@@ -27,23 +30,19 @@
 
 <script setup>
     import StandardButton from '../form/StandardButton.vue';
-    import { paths, methods } from '@/data/db.js';
     import { usePinia } from '@/store';
-    import { computed } from 'vue'
+    import { computed } from 'vue';
 
     const pinia = usePinia()
 
-    
-    //Data
+    // Data
     const projectsList = computed(() => {
         return pinia.projects
     })
 
-    // Delete Projects
-    const deleteProject = (projectId) => {
-        methods.delete(paths.allProjects, projectId).then(() => {
-            pinia.fetchProjects()
-        })
+    // Methods
+    function deleteProject (projectId) {
+        pinia.deleteProject(projectId)
     }
 </script>
 

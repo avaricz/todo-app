@@ -30,6 +30,11 @@ const router = createRouter({
       component: () => import ('../pages/FormPageProject.vue')
     },
     {
+      path: '/form-project/:id',
+      name: 'project-edit',
+      component: () => import ('../pages/FormPageProject.vue')
+    },
+    {
       path: '/form-task',
       name: 'form-task',
       component: () => import ('../pages/FormPageTask.vue')

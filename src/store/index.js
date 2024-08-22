@@ -17,6 +17,10 @@ export const usePinia = defineStore('DataStore', {
     },
     // Methods
     actions: {
+        deleteProject (projectid) {
+            return del(allProjects, projectid).then(()=> {
+                this.fetchProjects()})
+        },
         deleteTask (taskid) {
             return del(`${allTasks}/${taskid}`).then(() => {
                 Promise.all([this.fetchTasks(),this.fetchProjects()])
@@ -67,6 +71,9 @@ export const usePinia = defineStore('DataStore', {
                 this.singleTask = data
                  return data
             })
+        },
+        getProjectById(projectid){
+            return get(`${allProjects}/${projectid}`).then(data => data)
         },
         fetchTasksByProjects(projectid){
             const areProjectsFetched = this.projects.length 

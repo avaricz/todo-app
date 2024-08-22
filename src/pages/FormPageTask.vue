@@ -55,6 +55,7 @@
     const route = useRoute()
     const router = useRouter()
     const { allTasks } = paths
+    const { put, post } = methods
 
     // DATA
     const data = ref({
@@ -65,7 +66,6 @@
         priority: 0,
         
     })
-
     const projectsList = computed(() => {
        return pinia.projects.map(obj => {
             const {id, project: name} = obj
@@ -77,38 +77,33 @@
         { id: 2, name: "mid" },
         { id: 3, name: "high" }
     ])
-
     const buttonLabel = ref(route.params.id ? "Edit task" : "Create task")
-
     const isEdit = computed(() => !!route.params.id)
 
+    // Methods
+    function onSubmit () {
+        if (isEdit.value){
+            put(allTasks,route.params.id, data.value).then(() => {
+                router.back()
+            })
+            return
+        }
+        post(allTasks, data.value).then(() => {
+            router.back()
+        })
+    }
+    //LifeCycle hooks
     onMounted(()=>{
         if(isEdit.value){
-            
             pinia.getTaskById(route.params.id).then(() =>{
-          
             data.value.task = pinia.singleTask.task
             data.value.projectid = pinia.singleTask.projectid
             data.value.date = pinia.singleTask.date
             data.value.priority = pinia.singleTask.priority
             data.value.completed = pinia.singleTask.completed
-
-        }) 
-     }
-    })
-
-    // Methods
-    function onSubmit () {
-        if (isEdit.value){
-            methods.put(allTasks,route.params.id, data.value).then(() => {
-                router.back()
-            })
-            return
+            }) 
         }
-        methods.post(allTasks, data.value).then(() => {
-            router.back()
-        })
-    }
+    })
 </script>
 
 <style lang="scss" scoped>

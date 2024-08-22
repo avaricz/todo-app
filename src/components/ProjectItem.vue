@@ -3,14 +3,19 @@
     <div class="project-container">
 
         <div class="project-header">
-            <div class="project-name">{{ name }} <span>details</span></div><!-- TODO - po kliknutí na Name otevřít kompletní detail projektu se všemi členy, todos, atd.. -->
-            <div class="arrow-area" @click="onClick">
+            <div class="project-name">{{ project.project }} 
+                <span>details</span><!-- TODO - po kliknutí na Name otevřít kompletní detail projektu se všemi členy, todos, atd.. -->
+                <i class="pi pi-cog" @click="onClickEdit"></i>
+                <i class="pi pi-trash" @click="onClickDelete"></i>
+            </div>
+                
+            <div class="arrow-area" @click="onClickArrow">
                 <img src="@/img/icons/arrow-down.svg" alt="" :class="{opened: show}">
             </div>
         </div>
 
             <template v-if="show">
-                <div class="project-description">{{ description }}</div>
+                <div class="project-description">{{ project.description }}</div>
 
                 <template v-if="tasksList" >
                     <div class="tasks-wrapper">
@@ -46,24 +51,33 @@
 
 <script setup>
 import TaskItem from './TaskItem.vue';
+import { useRouter } from 'vue-router';
 import { usePinia } from '@/store';
 
     const props = defineProps({
+        project: {
+            type: Object,
+            required: true
+        },
         show: Boolean,
-        name: String,
-        description: String,
         people: Number,
         deadline: String, //TODO změnit props na Date
         tasksList: Array 
     })
-
+    const router = useRouter()
     const pinia = usePinia()
     const emit = defineEmits(['clicked'])
 
-    const onClick = () => {
+    // Methods
+    function onClickEdit () {
+        router.push(`form-project/${props.project.id}`)
+    }
+    function onClickDelete () {
+        pinia.deleteProject(props.project.id)
+    }
+    function onClickArrow () {
         emit('clicked')
     }
-
     function fetch() {
         pinia.fetchTasksByProjects(13)
     }
@@ -97,7 +111,7 @@ import { usePinia } from '@/store';
 
         cursor: pointer;
         span {
-            display: none;
+            display: block;
             font-size: .8rem;
             color: $black-lt;
             background: $gray;
@@ -105,11 +119,6 @@ import { usePinia } from '@/store';
             border-radius: 50px;
             margin-left: 1rem;
         }
-    }
-    .project-name:hover{
-        span {
-        display:block
-    }
     } 
     .arrow-area {
         display: flex;
