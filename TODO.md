@@ -7,16 +7,16 @@
 - [x] zobrazit seznam tasks v každém projektu
 - [x] přidat / editovat projekt
 - [x] přidat /editovat task
-- [ ] zobrazit seznam tasks (všech, s filtrem - nedokončené, s prioritou ... atd.)
 - [x] zobrazit seznam lidí
-- [ ] zobrazit detail člověka s přidělenými úkoly
-- [ ] statistika - kolik má úkolů, kolik z toho splněných, kolik po termínu, kolik před termínem
+- [x] přidat a editovat lidi
 - [x] v seznamech tasks - graficky odlišit hotové / nehotové / nehotové over due
-- [ ] graficky odlišit tasks, které nemají přiřazené lidi
-- [ ] přidat a editovat lidi
-- [ ] přidávat a odebírat lidi z jednotlivých tasks
 - [x] vymyslet nějak způsob přidávání positions
 - [x] mazání záznamů
+- [ ] zobrazit seznam tasks (všech, s filtrem - nedokončené, s prioritou ... atd.)
+- [ ] zobrazit detail člověka s přidělenými úkoly
+- [ ] statistika - kolik má úkolů, kolik z toho splněných, kolik po termínu, kolik před termínem
+- [ ] graficky odlišit tasks, které nemají přiřazené lidi
+- [ ] přidávat a odebírat lidi z jednotlivých tasks
 - [ ] nelze smazat projekt, pokud obsahuje tasks
 - [ ] když mažeme task, automaticky smažeme i k němu přidělené lidi (personstasks tabulka)
 - [ ] když smažeme člověka, auutomaticky smžeme záznamy v personstasks, které se ho týkají - nemůžeme mazat position, pokud se k ní vážou lidi
