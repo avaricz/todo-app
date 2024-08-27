@@ -2,32 +2,22 @@
         <div id="menu"
         class="new-item-menu menu"
         >
-            <Button v-for="button in Buttons"
-            
-            class="btn"></Button>
-
-            <Button 
+            <Button
+            v-for="button in buttonsSettings"
             class="btn"
-            @click="addTask" 
-            text 
-            >New task</Button>
+            @click="addItem(button.path)"
+            text
+            >
+                {{ button.label }}
+            </Button>
 
-            <Button 
-            @click="addProject" 
-            text 
-            >New project</Button>
-
-            <Button  
-            @click="addPerson" 
-            text 
-            >New person</Button>
         </div>
 </template>
 
 <script setup>
-    import Button from 'primevue/button';
-    import { useRouter } from 'vue-router'
     import { onMounted, onUnmounted } from 'vue';
+    import { useRouter } from 'vue-router';
+    import Button from 'primevue/button';
 
     const emit = defineEmits(['close-me'])
     const router = useRouter()
@@ -39,8 +29,6 @@
         }
     })
 
-
-    
     // Methods
     function clickOutside (e) {
         const menu = document.getElementById('menu')
@@ -48,17 +36,11 @@
             emit('close-me')
         }
     } 
-    const addProject = () => {
+
+    function addItem (path) {
         emit('close-me')
-        router.push('form-project')
-    }
-    const addTask = () => {
-        emit('close-me')
-        router.push('form-task')
-    }
-    const addPerson = () => {
-        emit('close-me')
-        router.push('form-person')
+        router.push(path)
+
     }
 
     // Lifecycle hooks
@@ -88,8 +70,5 @@
             }
         }
     }
-    .new-item-menu {
-        right: 0;
-        margin-right: .5rem;
-    }
+    
 </style>

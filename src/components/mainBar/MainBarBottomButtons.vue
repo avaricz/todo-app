@@ -4,23 +4,20 @@
         <Button
         size="small"
         text class="main-button"
-        @click.stop="showSettings"
+        @click.stop="showSettingsMenu"
         >
             <i class="pi pi-cog"></i>
         </Button>
 
-        <div
-        v-if="showSettingsMenu"
-        class="settings-menu menu">
-            <Button 
-            class="btn"
-            @click="editPositions"
-            text
-            >Edit positions</Button>
-        </div>
+        <ContextMenu
+        class="left"
+        v-if="settingsMenu"
+        :buttons-settings="settingsMenuList"
+        @close-me="showSettingsMenu"
+        />
         
         <Button
-        @click.stop="showMenu"
+        @click.stop="showNewItemsMenu"
         text
         class="main-button"
         >
@@ -28,37 +25,41 @@
         </Button>
 
         <ContextMenu
-        v-if="show"
-        @close-me="showMenu"
+        class="right"
+        v-if="newItemsMenu"
+        :buttons-settings="newItemsMenuList"
+        @close-me="showNewItemsMenu"
         />
 
     </div>
 </template>
 
 <script setup>
-import { matchedRouteKey, useRouter } from 'vue-router';
-import Button from 'primevue/button';
-import { ref } from 'vue';
-import ContextMenu from '@/components/mainBar/ContextMenu.vue'
+    import ContextMenu from '@/components/mainBar/ContextMenu.vue';
+    import Button from 'primevue/button';
+    import { ref } from 'vue';
 
-const router = useRouter()
-const show = ref(false)
+    
+    //Data
+    const settingsMenu = ref(false)
+    const newItemsMenu = ref(false)
+    const newItemsMenuList = [
+        { path: 'form-project', label: "New project" },
+        { path: 'form-task', label: "New task" },
+        { path: 'form-person', label: "New person" }
+    ]
+    const settingsMenuList = [
+        { path: 'edit-positions', label: "Edit positions" },
+    ]
 
-const buttonsSetting = [{method: neco, label: neco}]
-const showSettingsMenu = ref(false)
+    //Methods
+    function showSettingsMenu () {
+        settingsMenu.value = !settingsMenu.value
+    }
+    function showNewItemsMenu () {
+        newItemsMenu.value = !newItemsMenu.value
+    }
 
-function showSettings () {
-    showSettingsMenu.value = !showSettingsMenu.value
-}
-
-function showMenu () {
-    show.value = !show.value
-}
-
-const editPositions = () =>{
-    router.push('edit-positions')
-    showSettings()
-}
 </script>
 
 <style lang="scss" scoped>
@@ -77,27 +78,11 @@ const editPositions = () =>{
             background: $gray-dr;
         }
     }
-    .menu {
-        position: absolute;
-        bottom: 50px;
-        display: flex;
-        gap: .2rem;
-        flex-direction: column;
-        box-shadow: 0 0 5px -1px $black-lt;
-        background: $gray;
-        padding: .3rem;
-        border-radius: 10px;
-        .btn{
-            &:hover {
-                background: $gray-dr
-            }
-        }
-    }
-    .new-item-menu {
+    .right {
         right: 0;
         margin-right: .5rem;
     }
-    .settings-menu {
+    .left {
         left: 0;
         margin-left: .5rem;
     }

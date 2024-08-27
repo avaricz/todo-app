@@ -50,24 +50,19 @@
     const { allPositions } = paths
 
     // Data
-    
     const positionValue = ref({position: ""})
     const positionsList = computed(()=> pinia.positions.sort((a,b) => a.id - b.id))
-   
 
     // Methods
-
     function editPosition (payload) {
         pinia.getPositionById(payload)
     }
-
     function createPosition() {
         post(allPositions, positionValue.value).then(() => {
             pinia.fetchPositions()
         })
         clearInput()
     }
-
     function clearInput() {
         positionValue.value.position = ""
     }
@@ -75,10 +70,8 @@
     // Lifecycle hooks
     onMounted(()=>{
         pinia.fetchPositions().then(()=> {
-            console.log(positionsList.value)
         })
     })
-
 </script>
 
 <style lang="scss" scoped>
