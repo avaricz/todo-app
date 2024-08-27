@@ -42,6 +42,7 @@
 
     // Methods
     function deleteProject (projectId) {
+        //meziclanek
         pinia.deleteProject(projectId)
     }
 </script>

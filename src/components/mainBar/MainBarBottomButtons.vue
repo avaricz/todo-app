@@ -4,7 +4,7 @@
         <Button
         size="small"
         text class="main-button"
-        @click="showSettings"
+        @click.stop="showSettings"
         >
             <i class="pi pi-cog"></i>
         </Button>
@@ -20,65 +20,41 @@
         </div>
         
         <Button
-        @click="showMenu"
+        @click.stop="showMenu"
         text
         class="main-button"
         >
             <i class="pi pi-plus"></i>
         </Button>
 
-        <div
+        <ContextMenu
         v-if="show"
-        class="new-item-menu menu"
-        >
-            <Button 
-            class="btn"
-            @click="addTask" 
-            text 
-            >New task</Button>
-
-            <Button 
-            @click="addProject" 
-            text 
-            >New project</Button>
-
-            <Button  
-            @click="addPerson" 
-            text 
-            >New person</Button>
-        </div>
+        @close-me="showMenu"
+        />
 
     </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { matchedRouteKey, useRouter } from 'vue-router';
 import Button from 'primevue/button';
 import { ref } from 'vue';
+import ContextMenu from '@/components/mainBar/ContextMenu.vue'
 
 const router = useRouter()
+const show = ref(false)
 
+const buttonsSetting = [{method: neco, label: neco}]
 const showSettingsMenu = ref(false)
+
 function showSettings () {
     showSettingsMenu.value = !showSettingsMenu.value
 }
 
-const show = ref(false)
 function showMenu () {
     show.value = !show.value
 }
-const addProject = () => {
-    router.push('form-project')
-    showMenu()
-}
-const addTask = () => {
-    router.push('form-task')
-    showMenu()
-}
-const addPerson = () => {
-    router.push('form-person')
-    showMenu()
-}
+
 const editPositions = () =>{
     router.push('edit-positions')
     showSettings()
