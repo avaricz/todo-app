@@ -16,10 +16,13 @@
                     <li
                     class="task-li"
                     v-for="task in personTasksList">
-                        <div>
+                        <div 
+                        :class="{lined: task.completed}">
                         {{ task.task }}
                         </div>
-                        <div class="delete-button">
+                        <div
+                        v-if="!task.completed"
+                         class="delete-button">
                             <i class="pi pi-times-circle pointer red" @click="removeTask(task.id)"></i>
                         </div>
                     </li>
@@ -212,6 +215,8 @@
         color: green
     }
 }
-
+.lined {
+    text-decoration-line: line-through;
+}
 
 </style>

@@ -12,10 +12,10 @@
 - [x] v seznamech tasks - graficky odlišit hotové / nehotové / nehotové over due
 - [x] vymyslet nějak způsob přidávání positions
 - [x] mazání záznamů
+- [x] zobrazit detail člověka s přidělenými úkoly
 - [ ] zobrazit seznam tasks (všech, s filtrem - nedokončené, s prioritou ... atd.)
 - [ ] graficky odlišit tasks, které nemají přiřazené lidi
 - [ ] přidávat a odebírat lidi z jednotlivých tasks
-- [ ] zobrazit detail člověka s přidělenými úkoly
 - [ ] statistika - kolik má úkolů, kolik z toho splněných, kolik po termínu, kolik před termínem
 - [ ] nelze smazat projekt, pokud obsahuje tasks
 - [ ] když mažeme task, automaticky smažeme i k němu přidělené lidi (personstasks tabulka)
