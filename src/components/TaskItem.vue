@@ -14,6 +14,16 @@
                 </div>
             </div>
             <div class="labels-area">
+
+                <div v-if="persons" class="persons-container">
+                    <div
+                    v-for="person in persons"
+                    class="person-avatar"
+                    >
+                        {{ person.initials }}
+                    </div>
+                </div>
+
                 <span
                  class="label priority-label" 
                  :class="getPriorityClass(task.priority)"
@@ -42,6 +52,10 @@
             type: Object,
             required: true,
         },
+        persons: {
+            type: Object,
+            required: false,
+        },
         showProject: {
             type: Boolean,
             default: true
@@ -67,7 +81,7 @@
     const getCheckClass = (completed) => {
         return checkClasses.value[completed]
     }
-
+    // is overdue
     const isOverdue = (deadline) => {
         const taskDate = new Date(deadline).getTime()
         const curDate = new Date().getTime()
@@ -77,7 +91,6 @@
     // Methods
     function changeCompleted() {
         pinia.changeCompleted(props.task.id, props.task.completed).then(() => {
-
             emit('changeCompleted')
         })
     
@@ -132,6 +145,25 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            .persons-container{
+                display: flex;
+                .person-avatar {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: $black;
+                    position: relative;
+                    color: $white;
+                    font-size: .7rem;
+                    font-weight: bold;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    border: .5px solid $black-lt;
+                    border-radius: 100%;
+                    box-shadow: 0 0 10px -5px black;
+                    
+                }
+            }
             .label {
                 cursor: default;
                 color: $black-lt;

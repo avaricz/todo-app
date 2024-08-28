@@ -4,8 +4,10 @@
                 v-for="(task, index) in taskList"
                 :key="`task ${index+1}`"
                 :task="task"
+                :persons="personsByTask(task.id)"
                 @delete="deleteTask(task.id)"
                 @edit="editTask(task.id)"
+                @click="console.log(personsByTask(task.id))"
             />
     </ListView>
 </template>
@@ -15,17 +17,29 @@
     import ListView from '@/layouts/ListView.vue';
     import { computed, onMounted } from 'vue'
     import { usePinia } from '@/store';
-    import { methods, paths } from '@/data/db';
-    import { useRouter } from 'vue-router';
 
     const pinia = usePinia()
-    const router = useRouter()
 
     // Data
     const taskList = computed(() => pinia.tasks)
-
+    const personsByTask = (taskid) => {
+        const filtered = pinia.personsTasks.filter(obj => {
+            if(obj.taskid == taskid){
+                return obj
+            }
+        })
+        return filtered.map(obj => {
+            const person = {
+                id: obj.personid,
+                initials: obj.first[0] + obj.last[0]
+            }
+            return person
+        })
+    }
+    
     // Lifecycle hooks
     onMounted(() => {
         pinia.fetchTasks()
+        pinia.fetchPersonsTasks()
     })
 </script>

@@ -40,8 +40,9 @@
                                 v-for="(task, index) in tasksList"
                                 :key="`task ${index+1}`"
                                 :task="task"
+                                :persons="personsByTask(task.id)"
                                 :show-project="false"
-                                @change-completed="fetch"
+                                @change-completed="fetch(project.id)"
                             />
                         </ul>
                         
@@ -79,7 +80,7 @@ import { ref } from 'vue';
         show: Boolean,
         people: Number,
         deadline: String, //TODO změnit props na Date
-        tasksList: Array 
+        tasksList: Array
     })
     const router = useRouter()
     const pinia = usePinia()
@@ -87,7 +88,21 @@ import { ref } from 'vue';
 
     // Data
     const isMouseOver = ref(false)
-
+    const personsByTask = (taskid) => {
+        const filtered = pinia.personsTasks.filter(obj => {
+            if(obj.taskid == taskid){
+                return obj
+            }
+        })
+        return filtered.map(obj => {
+            const person = {
+                id: obj.personid,
+                initials: obj.first[0] + obj.last[0]
+            }
+            return person
+        })
+    }
+   
     // Methods
     function mouseOver () {
         isMouseOver.value = true
@@ -104,8 +119,9 @@ import { ref } from 'vue';
     function onClickArrow () {
         emit('clicked')
     }
-    function fetch() {
-        pinia.fetchTasksByProjects(13)
+    function fetch(projectid) { 
+        pinia.fetchTasksByProjects(projectid)
+
     }
 
 </script>

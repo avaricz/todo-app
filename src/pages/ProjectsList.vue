@@ -27,11 +27,12 @@
     const isProjectDetailOpened = ref(projectList.value.map(project => false))
     const deadline = computed(() => "13-4-2023")
     const peopleWorkingOnProject = computed(() => 4)
-
+    
     // Methods
     function onClickedProject (index) {
         const projectId = projectList.value[index].id
         pinia.fetchTasksByProjects(projectId)
+        pinia.fetchPersonsTasks()
         isProjectDetailOpened.value[index] = !isProjectDetailOpened.value[index]
     }
 
