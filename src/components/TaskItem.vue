@@ -24,7 +24,7 @@
                  :class="isOverdue(task.date)"
                  @click=""
                  >{{ task.date }}</span>
-                <i class="pi pi-cog pointer" @click="editTask(task.id)"></i>
+                <i v-if="showEdit" class="pi pi-cog pointer" @click="editTask(task.id)"></i>
                 <i class="pi pi-times-circle pointer red" @click="deleteTask"></i>
                 
             </div>
@@ -43,6 +43,10 @@
             required: true,
         },
         showProject: {
+            type: Boolean,
+            default: true
+        },
+        showEdit:{
             type: Boolean,
             default: true
         }
@@ -121,6 +125,8 @@
             gap: .5rem;
             overflow: hidden;
             text-overflow: ellipsis;
+            text-wrap: nowrap;
+            max-width: 200px;
         }
         .labels-area {
             display: flex;

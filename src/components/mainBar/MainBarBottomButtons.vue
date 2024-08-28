@@ -44,12 +44,12 @@
     const settingsMenu = ref(false)
     const newItemsMenu = ref(false)
     const newItemsMenuList = [
-        { path: 'form-project', label: "New project" },
-        { path: 'form-task', label: "New task" },
-        { path: 'form-person', label: "New person" }
+        { path: '/form-project', label: "New project" },
+        { path: '/form-task', label: "New task" },
+        { path: '/form-person', label: "New person" }
     ]
     const settingsMenuList = [
-        { path: 'edit-positions', label: "Edit positions" },
+        { path: '/edit-positions', label: "Edit positions" },
     ]
 
     //Methods

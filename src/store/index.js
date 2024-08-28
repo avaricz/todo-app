@@ -2,15 +2,17 @@ import { defineStore } from "pinia";
 import { methods, paths } from "@/data/db";
 
 const { get, put, delete:del} = methods
-const { allProjects, allTasks, allPersons, allPositions } = paths
+const { allProjects, allTasks, allPersons, allPositions , allPersonstasks } = paths
 export const usePinia = defineStore('DataStore', {
     // Data
     state: () => ({
-            projects: [],
-            tasks: [],
-            persons: [],
-            singleTask: null,
-            positions: [],
+        tasks: [],
+        persons: [],
+        projects: [],
+        positions: [],
+        singleTask: null,
+        personDetail: null,
+        personsTasks: []
     }),
     // Computed
     getters: {
@@ -70,6 +72,11 @@ export const usePinia = defineStore('DataStore', {
         fetchPositions() {
             return get(allPositions).then(data => {
                 this.positions = data
+            })
+        },
+        fetchPersonsTasks() {
+            return get(allPersonstasks).then(data =>{
+                this.personsTasks = data
             })
         },
         getTaskById(taskid){

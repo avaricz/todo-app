@@ -63,6 +63,11 @@ const router = createRouter({
       path: '/edit-positions',
       name: 'edit-positions',
       component: () => import ('../pages/SettingsPagePositions.vue')
+    },
+    {
+      path:'/person-detail/:id',
+      name: 'person-detail',
+      component: () => import ('../pages/PersonDetail.vue')
     }
   ]
 })

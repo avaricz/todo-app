@@ -39,6 +39,7 @@
 
     function addItem (path) {
         emit('close-me')
+        //console.log(path)
         router.push(path)
 
     }

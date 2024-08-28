@@ -10,11 +10,11 @@
 
         <div class="icons-area">
             <i class="pi pi-user-edit pointer"
-            @click="editPerson"
+            @click.stop="editPerson"
             ></i>
             <i
             class="pi pi-times-circle pointer red"
-            @click="deletePerson"
+            @click.stop="deletePerson"
             ></i>
         </div>
     </div>
@@ -59,6 +59,7 @@
 <style lang="scss" scoped>
 @import '@/assets/base.scss';
 .person-container {
+    cursor: pointer;
     border: 0px solid $black-lt;
     border-radius: 50px;
     display: flex;
