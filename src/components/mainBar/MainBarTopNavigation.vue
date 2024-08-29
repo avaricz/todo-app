@@ -11,7 +11,7 @@
             <li v-for="(item, index) in navigationItems" :key="'navigationItem'+index">
 
                 <RouterLink :to="item.link">
-                    <img :src="item.imgPath" alt="">
+                    <img :src="`./src/img/icons/${item.img}`" alt="">
                     {{ item.title }}
                 </RouterLink>
                 
@@ -31,30 +31,32 @@
     
     const pinia = usePinia()
 
-   
-
     const navigationItems = computed(() => {
         return [
         {
             title: "Projects",
-            imgPath: "./src/img/icons/projects.svg",
+            img: "projects.svg",
             link: "/projects",
             count: pinia.projects.length,
         },
         {
             title: "Tasks",
-            imgPath: "./src/img/icons/task.svg",
+            img: 'task.svg',
             link: "/tasks",
             count: pinia.projects.reduce((acc,cur) => acc + cur.taskscount, 0),
 
         },
         {
             title: "Persons",
-            imgPath: "./src/img/icons/persons.svg",
+            img: "persons.svg",
             link: "/persons",
             count: pinia.projects.length ? pinia.projects[0].personscount : 0,
         }
     ]})
+
+    function getImgUrl (imagePath) {
+        return require('./src/img/' + imagePath);
+    }
 
 </script>
 

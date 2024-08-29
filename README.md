@@ -21,6 +21,8 @@
 ## issues
 - [x] Upravit form pro Project, aby se textarea roytahovala automaticky s pribyvajicim textem
 - [ ] Opravit, pri smazani ukolu v projektu znovu nacist tasky (aktualne vsechny zmizi)
+- [ ] Doresit problem s ikonami. V nekterych pripadech se po refreshi nenactou obrazky
+- [ ] Duplicita pridelenych lidi na task. V pripade, ze clovek jiz na ukolu pracuje, tak nesmi byt v Select k vyberu
 
 # todo-app
 

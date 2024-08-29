@@ -105,8 +105,6 @@
         })
     })
 
-
-
     //Methods
     function discardPerson(recordid) {
         pinia.deletePersonstasks(recordid)
