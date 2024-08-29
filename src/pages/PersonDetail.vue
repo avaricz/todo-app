@@ -94,7 +94,6 @@
             personid: route.params.id,
             taskid: persontask.value
         }
-        console.log(allPersonstasks,body)
         post(allPersonstasks, body)
         .then(() => {
             pinia.fetchPersonsTasks()
@@ -104,7 +103,6 @@
     }
     function clearInput () {
         persontask.value = null
-        console.log(personTasksList.value)
     }
     function removeTask(recordid) {
         del(allPersonstasks, recordid)

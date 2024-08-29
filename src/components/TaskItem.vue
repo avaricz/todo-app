@@ -1,12 +1,13 @@
 <template>
-    <div class="task-container">
+    <div class="task-container"
+    @click="openDetail(task.id)">
         <div class="task-body"> 
             <div class="header-area">   
                 <div class="checkbox-area">
                     <i 
                     class="pi pointer" 
                     :class="getCheckClass(task.completed)" 
-                    @click="changeCompleted"
+                    @click.stop="changeCompleted"
                     ></i>
                 </div> 
                 <div class="task-title-area" :class="{completed: task.completed}">
@@ -32,10 +33,9 @@
                 <span
                  class="label"
                  :class="isOverdue(task.date)"
-                 @click=""
                  >{{ task.date }}</span>
-                <i v-if="showEdit" class="pi pi-cog pointer" @click="editTask(task.id)"></i>
-                <i class="pi pi-times-circle pointer red" @click="deleteTask"></i>
+                <i v-if="showEdit" class="pi pi-cog pointer" @click.stop="editTask(task.id)"></i>
+                <i class="pi pi-times-circle pointer red" @click.stop="deleteTask"></i>
                 
             </div>
         </div>   
@@ -93,7 +93,6 @@
         pinia.changeCompleted(props.task.id, props.task.completed).then(() => {
             emit('changeCompleted')
         })
-    
     }
     function deleteTask() {
         pinia.deleteTask(props.task.id)
@@ -101,12 +100,16 @@
     function editTask (taskid) {
         router.push('/form-task/' + taskid)
     }
+    function openDetail (taskid) {
+        router.push('/task-detail/' + taskid)
+    }
 </script>
 
 
 <style lang="scss" scoped>
 @import '@/assets/base.scss';
 .task-container {
+    cursor: pointer;
     transition: all .3s linear;
     box-sizing:content-box;
 

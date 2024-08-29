@@ -68,6 +68,11 @@ const router = createRouter({
       path:'/person-detail/:id',
       name: 'person-detail',
       component: () => import ('../pages/PersonDetail.vue')
+    },
+    {
+      path:'/task-detail/:id',
+      name: 'task-detail',
+      component: () => import ('../pages/TaskDetail.vue')
     }
   ]
 })

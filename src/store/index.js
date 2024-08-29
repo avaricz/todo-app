@@ -39,6 +39,11 @@ export const usePinia = defineStore('DataStore', {
                 this.fetchPositions()
             })
         },
+        deletePersonstasks (recordid) {
+            return del(allPersonstasks, recordid).then(() => {
+                this.fetchPersonsTasks()
+            })
+        },
         getPositionById(positionid) {
             return get(`${allPositions}/${positionid}`)
         },

@@ -21,7 +21,6 @@ export const methods = {
             return response.json()
         })
         .then(data => {
-            console.log("GET: ", data)
             return data.data
         })
         .catch(error => console.log('GET error: ', error))
@@ -33,7 +32,6 @@ export const methods = {
             body: JSON.stringify(body)
         })
         .then(response => {
-            console.log(response)
             if(!response.ok) {
                 throw new Error('Network response wasn\'t ok' + response.statusText)
             }
