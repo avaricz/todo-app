@@ -15,8 +15,8 @@
 - [x] mazání záznamů
 - [x] zobrazit detail člověka s přidělenými úkoly
 - [x] graficky odlišit tasks, které nemají přiřazené lidi
+- [x] přidávat a odebírat lidi z jednotlivých tasks
 - [ ] zobrazit seznam tasks (všech, s filtrem - nedokončené, s prioritou ... atd.)
-- [ ] přidávat a odebírat lidi z jednotlivých tasks
 - [ ] statistika - kolik má úkolů, kolik z toho splněných, kolik po termínu, kolik před termínem
 - [ ] nelze smazat projekt, pokud obsahuje tasks
 - [ ] když mažeme task, automaticky smažeme i k němu přidělené lidi (personstasks tabulka)
