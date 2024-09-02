@@ -84,7 +84,7 @@ import { ref } from 'vue';
     })
     const router = useRouter()
     const pinia = usePinia()
-    const emit = defineEmits(['clicked'])
+    const emit = defineEmits(['clicked', 'clicked-delete'])
 
     // Data
     const isMouseOver = ref(false)
@@ -114,7 +114,8 @@ import { ref } from 'vue';
         router.push(`form-project/${props.project.id}`)
     }
     function onClickDelete () {
-        pinia.deleteProject(props.project.id)
+        emit('clicked-delete')
+        //pinia.deleteProject(props.project.id)
     }
     function onClickArrow () {
         emit('clicked')
