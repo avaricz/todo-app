@@ -22,10 +22,11 @@
 ## issues
 - [x] Upravit form pro Project, aby se textarea roytahovala automaticky s pribyvajicim textem
 - [ ] Pri mazani projektu, pokud jsou pridruzene ukoly DONE, tak je mozno smazat projekt
-- [ ] Opravit, pri smazani ukolu v projektu znovu nacist tasky (aktualne vsechny zmizi)
+- [ ] Opravit, pri smazani ukolu v projektu znovu nacist tasky (aktualne vsechny zmizi) v komponente ProjectItem - zpusobeno prepsanim polozky task zavesenych na projects v Pinia
 - [ ] Doresit problem s ikonami. V nekterych pripadech se po refreshi nenactou obrazky
 - [ ] Duplicita pridelenych lidi na task. V pripade, ze clovek jiz na ukolu pracuje, tak nesmi byt v Select k vyberu
 - [ ] Ve form-task, kde je nacteny detail tasku, pokud kliknu na new item + task, tak formular nese stale data z predesle editace tasku
+- [ ] Orientace. Pro uzivatele musi byt zjevne, kde se aktualne nachazi
 
 # todo-app
 
