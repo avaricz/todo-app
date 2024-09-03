@@ -82,6 +82,7 @@ export const usePinia = defineStore('DataStore', {
         fetchPersonsTasks() {
             return get(allPersonstasks).then(data =>{
                 this.personsTasks = data
+                return data
             })
         },
         getTaskById(taskid){

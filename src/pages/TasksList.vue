@@ -5,9 +5,6 @@
                 :key="`task ${index+1}`"
                 :task="task"
                 :persons="personsByTask(task.id)"
-                @delete="deleteTask(task.id)"
-                @edit="editTask(task.id)"
-                @click="console.log(personsByTask(task.id))"
             />
     </ListView>
 </template>

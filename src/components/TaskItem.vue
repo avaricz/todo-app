@@ -35,17 +35,31 @@
                  :class="isOverdue(task.date)"
                  >{{ task.date }}</span>
                 <i v-if="showEdit" class="pi pi-cog pointer" @click.stop="editTask(task.id)"></i>
-                <i class="pi pi-times-circle pointer red" @click.stop="deleteTask"></i>
+                <i class="pi pi-times-circle pointer red" @click.stop="openModal(task.id)"></i>
                 
             </div>
         </div>   
     </div>
+    <DefaultModal
+        v-if="showModal"
+        :msg="modalSetup.contentMsg"
+        :header="modalSetup.header"
+        :data="modalSetup.dataForConfirm"
+        :cancel-btn="modalSetup.cancelBtn"
+        :confirm-btn="modalSetup.confirmBtn"
+        :cancel-label="modalSetup.cancelLabel"
+        :confirm-label="modalSetup.confirmLabel"
+        @close-me="closeModal"
+        @cancel="closeModal"
+        @confirm="deleteTask" />
 </template>
 
 <script setup>
     import { ref } from 'vue';
     import { usePinia } from '@/store';
     import { useRouter } from 'vue-router'
+    import {methods, paths} from '@/data/db'
+    import DefaultModal from './DefaultModal.vue';
 
     const props = defineProps({
         task: {
@@ -64,11 +78,14 @@
             type: Boolean,
             default: true
         }
-     })
-
+    })
+    
     const pinia = usePinia()
     const router = useRouter()
     const emit = defineEmits(['changeCompleted'])
+    
+    const { get } = methods
+    const { allTasks } = paths
 
     // Labels
     const priorityLabels = ['low', 'mid', 'high']
@@ -88,14 +105,83 @@
         return (taskDate < curDate) ? "overdue" : ""
     }
 
+    // Modal
+    const showModal = ref(false)
+
+    const modalSetup = ref({
+        header: '',
+        contentMsg: '',
+        cancelBtn: false,
+        confirmBtn: false,
+        cancelLabel: '',
+        confirmLabel: '',
+        dataForConfirm: [],
+    })
+
+    function openModal (id) {
+        modalSetup.value.dataForConfirm.taskid = id
+
+        pinia.fetchPersonsTasks().then( data => {
+                const conections = data.filter( element => {
+                    if (element.taskid === id){
+                        return element
+
+                    }
+                })
+                console.log(conections);
+                
+                modalSetup.value.header = `Delete task`
+                modalSetup.value.cancelBtn = true
+                modalSetup.value.cancelLabel = 'Cancel'
+                modalSetup.value.confirmBtn = true
+                modalSetup.value.confirmLabel = 'Delete'
+                modalSetup.value.dataForConfirm.conections = conections
+                if(conections.length) {
+                    modalSetup.value.contentMsg = `Opravdu chcete smazat task i kdyz jsou k nemu prirazeni lide?`
+                } else {
+                    modalSetup.value.contentMsg = `Opravdu chcete smazat task?`
+                }
+            }).then(()=> {
+                showModal.value = true
+            })
+    }
+    // TODO v pinia opravit metodu fetchTasksByProjects a roydelit ji aby opravdu jen fetch
+   /*  const hasProjectAnyTask = (projectid) => {
+        return get(`${allTasks}?projectid=${projectid}`).then(data => data) 
+    } */
+
+    function closeModal () {
+        resetModalSetup()
+        showModal.value = false
+    }
+
+    function deleteTask (payload) {
+        if(payload.conections.length) {
+            payload.conections.forEach((conection) => {
+                pinia.deletePersonstasks(conection.id)
+            })
+        }
+        pinia.deleteTask(payload.taskid)
+        resetModalSetup()
+        closeModal()
+    }
+
+    function resetModalSetup () {
+        modalSetup.value.header = '',
+        modalSetup.value.contentMsg = '',
+        modalSetup.value.cancelBtn = false,
+        modalSetup.value.confirmBtn = false,
+        modalSetup.value.cancelLabel = '',
+        modalSetup.value.confirmLabel = '',
+        modalSetup.value.dataForConfirm = []
+    }
+
+
     // Methods
     function changeCompleted() {
         pinia.changeCompleted(props.task.id, props.task.completed).then(() => {
             emit('changeCompleted')
         })
-    }
-    function deleteTask() {
-        pinia.deleteTask(props.task.id)
     }
     function editTask (taskid) {
         router.push('/form-task/' + taskid)
