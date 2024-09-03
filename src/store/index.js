@@ -96,6 +96,7 @@ export const usePinia = defineStore('DataStore', {
         getPersonById(personid){
             return get(`${allPersons}/${personid}`).then(data => data)
         },
+         // TODO v pinia opravit metodu fetchTasksByProjects a roydelit ji aby opravdu jen fetch
         fetchTasksByProjects(projectid){
             const areProjectsFetched = this.projects.length 
             ? Promise.resolve()

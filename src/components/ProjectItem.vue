@@ -20,8 +20,8 @@
                 <div 
                 v-if="isMouseOver || show"
                 class="icons-area">
-                    <i class="pi pi-cog pointer" @click="onClickEdit"></i>
-                    <i class="pi pi-trash pointer red" @click="onClickDelete"></i>
+                    <i class="pi pi-cog pointer" @click.stop="onClickEdit"></i>
+                    <i class="pi pi-trash pointer red" @click.stop="onClickDelete"></i>
                 </div>
             </div>
                 

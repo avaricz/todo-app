@@ -12,17 +12,19 @@
 - [x] zobrazit detail člověka s přidělenými úkoly
 - [x] graficky odlišit tasks, které nemají přiřazené lidi
 - [x] přidávat a odebírat lidi z jednotlivých tasks
+- [x] nelze smazat projekt, pokud obsahuje tasks
 - [ ] zobrazit seznam tasks (všech, s filtrem - nedokončené, s prioritou ... atd.)
 - [ ] statistika - kolik má úkolů, kolik z toho splněných, kolik po termínu, kolik před termínem
-- [ ] nelze smazat projekt, pokud obsahuje tasks
 - [ ] když mažeme task, automaticky smažeme i k němu přidělené lidi (personstasks tabulka)
 - [ ] když smažeme člověka, auutomaticky smžeme záznamy v personstasks, které se ho týkají - nemůžeme mazat position, pokud se k ní vážou lidi
 
 ## issues
 - [x] Upravit form pro Project, aby se textarea roytahovala automaticky s pribyvajicim textem
+- [ ] Pri mazani projektu, pokud jsou pridruzene ukoly DONE, tak je mozno smazat projekt
 - [ ] Opravit, pri smazani ukolu v projektu znovu nacist tasky (aktualne vsechny zmizi)
 - [ ] Doresit problem s ikonami. V nekterych pripadech se po refreshi nenactou obrazky
 - [ ] Duplicita pridelenych lidi na task. V pripade, ze clovek jiz na ukolu pracuje, tak nesmi byt v Select k vyberu
+- [ ] Ve form-task, kde je nacteny detail tasku, pokud kliknu na new item + task, tak formular nese stale data z predesle editace tasku
 
 # todo-app
 

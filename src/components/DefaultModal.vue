@@ -1,22 +1,28 @@
-<template>
-    <div class="modal-bg" v-if="show">
+<template >
+    <div class="modal-bg">
       <div class="modal-body" id="modal-body">
+        <div class="modal-header" >
+          <div>{{ header }}</div>
+          <i class="pi pi-times pointer" @click.stop="$emit('cancel')"></i>
+        </div>
         <div class="modal-content">
           {{  msg }}
         </div>
         <div class="modal-footer">
-          <button v-if="cancelBtn" @click.stop="$emit('cancel')">{{ cancelLabel }}</button>
-          <button v-if="confirmBtn" @click.stop="$emit('confirm')">{{ confirmLabel }}</button>
+          <Button v-if="cancelBtn" @click.stop="cancel" outlined>{{ cancelLabel }}</button>
+          <Button v-if="confirmBtn" @click.stop="confirm">{{ confirmLabel }}</button>
         </div>
       </div>
     </div>
   </template>
   
 <script setup>
-  import { watch,} from 'vue'
+  import Button from 'primevue/button';
+  import { onMounted, onUnmounted } from 'vue'
 
   const props = defineProps({
     msg: String,
+    header: String,
     cancelBtn: {
       type: Boolean,
       default: false
@@ -33,48 +39,44 @@
       type: String,
       default: 'OK'
     },
-    show: {
-      type: Boolean
+    data: {
+      type: Number,
     }
   })
 
-  const emit = defineEmits(['close-me'])
+  const emit = defineEmits(['close-me', 'confirm', 'cancel'])
 
   // Methods
   function clickOutside (e) {
+    e.stopPropagation()
     const el = document.getElementById('modal-body')
     if(!el.contains(e.target)) {
-      console.log('clickam vedle')
       emit('close-me')
     }
   }
 
-    
-/*     // Lifecycle hooks
-    onMounted (() => {
-        document.addEventListener('click', clickOutside)
-    })
+  function confirm () {
+    emit('confirm', props.data)
+  }
+  function cancel () {
+    emit('cancel')
+  }
 
-    onUnmounted (() => {
-        document.removeEventListener('click', clickOutside)
-    })  */
+  
+  // Lifecycle hooks
+  onMounted (() => {
+      document.addEventListener('click', clickOutside)
+  })
+
+  onUnmounted (() => {
+      document.removeEventListener('click', clickOutside)
+  })   
         
-        
-    // Watchers
-    watch (() => props.show, (newValue, oldValue) => {
-        if (newValue === true) {
-            console.log('newValue je true :', newValue);
-            document.addEventListener('click', clickOutside)
-        } else {
-            console.log('neValue is false :', newValue);
-            document.removeEventListener('click', clickOutside)
-        }
-    }) 
-    
 
   </script>
   
-  <style scoped>
+  <style lang="scss" scoped>
+    @import '@/assets/base.scss';
     .modal-bg {
       width: 100vw;
       height: 100vh;
@@ -84,18 +86,34 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, .1)
+      background: rgba(0, 0, 0, .2);
     }
     .modal-body {
+      border: .5px solid $black-lt;
+      border-radius: 10px;
       min-width: 300px;
       min-height: 100px;
       background: white;
-      padding: .5rem;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
+      gap: 2rem;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 1.5rem;
+      color: $black;
+      div {
+        font-weight: bold;
+      }
     }
     .modal-content {
       flex-grow: 1;
+      font-size: 1.1rem;
+      color: $black;
+
     }
     .modal-footer {
       flex-basis: 30px;
@@ -103,5 +121,13 @@
       gap: 1rem;
       justify-content: flex-end;
       align-items: center;
+    }
+    .pointer {
+      padding: .5rem;
+      border-radius: 10px;
+      cursor: pointer;
+      &:hover {
+        background: $gray
+      }
     }
   </style>
