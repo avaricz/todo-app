@@ -59,11 +59,11 @@
         confirmBtn: false,
         cancelLabel: '',
         confirmLabel: '',
-        dataForConfirm: '',
+        dataForConfirm: {},
     })
 
     function openModal (id) {
-        modalSetup.value.dataForConfirm = id
+        modalSetup.value.dataForConfirm.projectid = id
         hasProjectAnyTask(id).then( data => {
             if (data.length) {
                 modalSetup.value.header = `Nelze smazat`
@@ -95,8 +95,8 @@
         showModal.value = false
     }
 
-    function deleteProject (projectid) {
-        pinia.deleteProject(projectid)
+    function deleteProject (payload) {
+        pinia.deleteProject(payload.projectid)
         resetModalSetup()
         closeModal()
     }

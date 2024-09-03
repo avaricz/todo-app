@@ -40,7 +40,7 @@
       default: 'OK'
     },
     data: {
-      type: Array,
+      type: Object,
     }
   })
 

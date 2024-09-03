@@ -115,7 +115,7 @@
         confirmBtn: false,
         cancelLabel: '',
         confirmLabel: '',
-        dataForConfirm: [],
+        dataForConfirm: {},
     })
 
     function openModal (id) {
@@ -128,8 +128,6 @@
 
                     }
                 })
-                console.log(conections);
-                
                 modalSetup.value.header = `Delete task`
                 modalSetup.value.cancelBtn = true
                 modalSetup.value.cancelLabel = 'Cancel'
@@ -145,10 +143,6 @@
                 showModal.value = true
             })
     }
-    // TODO v pinia opravit metodu fetchTasksByProjects a roydelit ji aby opravdu jen fetch
-   /*  const hasProjectAnyTask = (projectid) => {
-        return get(`${allTasks}?projectid=${projectid}`).then(data => data) 
-    } */
 
     function closeModal () {
         resetModalSetup()
