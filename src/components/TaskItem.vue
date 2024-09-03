@@ -58,7 +58,6 @@
     import { ref } from 'vue';
     import { usePinia } from '@/store';
     import { useRouter } from 'vue-router'
-    import {methods, paths} from '@/data/db'
     import DefaultModal from './DefaultModal.vue';
 
     const props = defineProps({
@@ -84,8 +83,6 @@
     const router = useRouter()
     const emit = defineEmits(['changeCompleted'])
     
-    const { get } = methods
-    const { allTasks } = paths
 
     // Labels
     const priorityLabels = ['low', 'mid', 'high']

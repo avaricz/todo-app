@@ -14,9 +14,10 @@
 - [x] přidávat a odebírat lidi z jednotlivých tasks
 - [x] nelze smazat projekt, pokud obsahuje tasks
 - [x] když mažeme task, automaticky smažeme i k němu přidělené lidi (personstasks tabulka)
+- [x] nemůžeme mazat position, pokud se k ní vážou lidi
+- [ ] když smažeme člověka, auutomaticky smžeme záznamy v personstasks, které se ho týkají  
 - [ ] zobrazit seznam tasks (všech, s filtrem - nedokončené, s prioritou ... atd.)
 - [ ] statistika - kolik má úkolů, kolik z toho splněných, kolik po termínu, kolik před termínem
-- [ ] když smažeme člověka, auutomaticky smžeme záznamy v personstasks, které se ho týkají - nemůžeme mazat position, pokud se k ní vážou lidi
 
 ## issues
 - [x] Upravit form pro Project, aby se textarea roytahovala automaticky s pribyvajicim textem

@@ -72,6 +72,7 @@ export const usePinia = defineStore('DataStore', {
         fetchPersons () {
             return get(allPersons).then(data => {
                 this.persons = data
+                return data
             })
         },
         fetchPositions() {
