@@ -1,6 +1,6 @@
 <template>
 
-    <div class="person-container">
+    <div class="person-container" @click.stop="clickOnContainer">
         <div class="avatar"> {{ initials }}</div>
         <div class="info-area">
             <div class="name-area"> {{ person.first + " " + person.last }} </div>
@@ -14,10 +14,22 @@
             ></i>
             <i
             class="pi pi-times-circle pointer red"
-            @click.stop="deletePerson"
+            @click.stop="openModal(person.id)"
             ></i>
         </div>
     </div>
+    <DefaultModal
+        v-if="showModal"
+        :msg="modalSetup.contentMsg"
+        :header="modalSetup.header"
+        :data="modalSetup.dataForConfirm"
+        :cancel-btn="modalSetup.cancelBtn"
+        :confirm-btn="modalSetup.confirmBtn"
+        :cancel-label="modalSetup.cancelLabel"
+        :confirm-label="modalSetup.confirmLabel"
+        @close-me="closeModal"
+        @cancel="closeModal"
+        @confirm="deletePerson" />
 
 </template>
 
@@ -25,6 +37,7 @@
     import { useRouter } from 'vue-router';
     import { usePinia } from '@/store';
     import { ref } from 'vue'
+import DefaultModal from './DefaultModal.vue';
 
     const pinia = usePinia()
     const router = useRouter()
@@ -44,14 +57,83 @@
         }
     })
 
+    const emit = defineEmits(['container-clicked'])
+
     const initials = ref(props.person.first[0].toUpperCase() + props.person.last[0].toUpperCase())
 
-    //Methods
-    function deletePerson() {
-        pinia.deletePerson(props.person.id)
+    // Modal
+    const showModal = ref(false)
+
+    const modalSetup = ref({
+        header: '',
+        contentMsg: '',
+        cancelBtn: false,
+        confirmBtn: false,
+        cancelLabel: '',
+        confirmLabel: '',
+        dataForConfirm: {},
+    })
+
+    function openModal (id) {
+        console.log(id)
+        modalSetup.value.dataForConfirm.personid = id
+
+        pinia.fetchPersonsTasks().then( data => {
+            const conections = data.filter(conection => {
+                if (conection.personid === id){
+                    console.log(conection)
+                    return conection
+                }
+            })
+            modalSetup.value.dataForConfirm.conections = conections
+            modalSetup.value.header = `Delete person`
+            modalSetup.value.cancelBtn = true
+            modalSetup.value.cancelLabel = 'Cancel'
+            modalSetup.value.confirmBtn = true
+            modalSetup.value.confirmLabel = 'Delete'
+            if(conections.length) {
+                modalSetup.value.contentMsg = `Na tohoto uzivatele se vazi ukoly. Chcete jej i presto smazat?`
+            } else {
+                modalSetup.value.contentMsg = `Opravdu smazat uzivatele?`
+            }
+        }).then(()=> {
+            showModal.value = true
+        })
     }
+
+    function closeModal () {
+        resetModalSetup()
+        showModal.value = false
+    }
+
+    function deletePerson (payload) {
+        if(payload.conections.length) {
+            payload.conections.forEach((conection) => {
+                pinia.deletePersonstasks(conection.id)
+            })
+        }
+        pinia.deletePerson(payload.personid)
+        resetModalSetup()
+        closeModal()
+    }
+
+    function resetModalSetup () {
+        modalSetup.value.header = '',
+        modalSetup.value.contentMsg = '',
+        modalSetup.value.cancelBtn = false,
+        modalSetup.value.confirmBtn = false,
+        modalSetup.value.cancelLabel = '',
+        modalSetup.value.confirmLabel = '',
+        modalSetup.value.dataForConfirm = []
+    }
+
+
+    //Methods
     function editPerson() {
         router.push('/form-person/' + props.person.id)
+    }
+    function clickOnContainer () {
+        emit('container-clicked')
     }
 
 </script>

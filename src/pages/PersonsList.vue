@@ -5,7 +5,7 @@
                 :key="`person ${index+1}`"
                 :person="person"
                 :number-of-tasks="7"
-                @click.stop="openDetail(person.id)"
+                @container-clicked="openDetail(person.id)"
                 />
     </ListView>
 </template>

@@ -15,7 +15,7 @@
 - [x] nelze smazat projekt, pokud obsahuje tasks
 - [x] když mažeme task, automaticky smažeme i k němu přidělené lidi (personstasks tabulka)
 - [x] nemůžeme mazat position, pokud se k ní vážou lidi
-- [ ] když smažeme člověka, auutomaticky smžeme záznamy v personstasks, které se ho týkají  
+- [x] když smažeme člověka, auutomaticky smžeme záznamy v personstasks, které se ho týkají  
 - [ ] zobrazit seznam tasks (všech, s filtrem - nedokončené, s prioritou ... atd.)
 - [ ] statistika - kolik má úkolů, kolik z toho splněných, kolik po termínu, kolik před termínem
 
