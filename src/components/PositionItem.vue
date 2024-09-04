@@ -61,7 +61,6 @@
     })
 
     function openModal (id) {
-        console.log(id)
         modalSetup.value.dataForConfirm.positionid = id
 
         pinia.fetchPersons().then( data => {
@@ -107,7 +106,7 @@
         modalSetup.value.confirmBtn = false,
         modalSetup.value.cancelLabel = '',
         modalSetup.value.confirmLabel = '',
-        modalSetup.value.dataForConfirm = []
+        modalSetup.value.dataForConfirm = {}
     }
 
 

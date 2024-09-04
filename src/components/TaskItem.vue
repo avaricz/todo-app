@@ -164,7 +164,7 @@
         modalSetup.value.confirmBtn = false,
         modalSetup.value.cancelLabel = '',
         modalSetup.value.confirmLabel = '',
-        modalSetup.value.dataForConfirm = []
+        modalSetup.value.dataForConfirm = {}
     }
 
 

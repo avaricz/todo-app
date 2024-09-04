@@ -1,5 +1,7 @@
 <template>
     <div class="container">
+
+        <img src="@/img/icons/sidebar2.svg" alt="" height="24px" class="sidebar-icon">
             <Suspense>
                 <MainBarTopNavigation class="navigation-wrapper"/>
             </Suspense>
@@ -42,4 +44,8 @@
             bottom: 0;
         }
     }
+
+    .sidebar-icon {
+            transform: rotate(180deg);
+        }
 </style>
